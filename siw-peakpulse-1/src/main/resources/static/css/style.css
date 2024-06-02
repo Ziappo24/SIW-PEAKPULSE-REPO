@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Graduate", serif;
+	scroll-behavior: smooth;
+}
+
+body {
+	min-height: 100vh;
+	background: linear-gradient(#90273A, #90273A);
+	overflow-x: hidden;
+}
+
+header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 30px 100px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 10000;
+}
+
+
+header .logo {
+	color: #fff;
+	font-weight: 700;
+	text-decoration: none;
+	font-size: 2em;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+header ul {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+header ul li {
+	list-style: none;
+	margin-left: 20px;
+}
+
+header ul li a {
+	text-decoration: none;
+	padding: 6px 15px;
+	color: #fff;
+	border-radius: 20px;
+}
+
+header ul li a:hover,
+header ul li a.active {
+	background: #fff;
+	color: rgb(123, 63, 17);
+}
+
+section {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	padding: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+section::before{
+	content: '';
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 100px;
+	background: linear-gradient(to top, #90273A, transparent);
+	z-index: 900;
+}
+
+section img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	pointer-events: none;
+}
+
+#text {
+	position: absolute;
+	z-index: 9;
+	color: rgb(160, 69, 115);
+	white-space: nowrap;
+	font-size: 4.5vw;
+	transform: translateY(-150px);
+	right: -50px;
+}
+
+#button {
+	display: inline-block;
+	text-decoration: none;
+	padding: 8px 30px;
+	border-radius: 40px;
+	background: #fff;
+	color: #90273A;
+	font-size: 1.5em;
+	z-index: 9;
+
+
+}
+
+section img#montagne_front {
+	z-index: 10;
+}
+
+.sec {
+	position: relative;
+	padding: 100px;
+}
+
+
+.sec h2 {
+	font-size: 3.5em;
+	margin-bottom: 10px;
+	color: #fff;
+}
+
+.sec p {
+	margin: 10px;
+	font-size: 1.2em;
+	color: #fff;
+	font-weight: 50;
+	text-align: justify;
+}
+
+.sec strong {
+	font-size: 1.2em;
+}
+
+.sec-2 {
+	background-color: #fff;
+}
+
+.sec-2-content {
+	display: flex;
+	justify-content: space-between;
+}
+
+.ss-image-block {
+	flex: 1;
+	/* Le immagini occupano lo stesso spazio disponibile */
+	margin: 10px;
+	/* Aggiungi margine tra le immagini */
+	display: flex;
+	/* Abilita il layout flessibile per le immagini */
+	justify-content: center;
+	/* Centra le immagini lungo l'asse orizzontale */
+	align-items: center;
+	/* Centra le immagini lungo l'asse verticale */
+
+}
+
+.ss-block-content {
+	width: 100%;
+	/* Imposta la larghezza delle immagini al 100% del contenitore */
+	text-align: center;
+	/* Centra il contenuto all'interno del blocco dell'immagine */
+}
+
+.ss-block-content img {
+	max-width: 80%;
+	/* Imposta la larghezza massima dell'immagine al 100% */
+	height: auto;
+	/* Imposta l'altezza automaticamente in base alla larghezza specificata */
+}
+
+.links {
+	display: flex;
+	flex-direction: row;
+	/* Disponi i link in riga */
+	justify-content: center;
+	/* Centra i link lungo l'asse orizzontale */
+	align-items: center;
+	/* Centra i link lungo l'asse verticale */
+	margin-top: 10px;
+	/* Aggiungi spazio superiore tra le immagini e i link */
+}
+
+.links a {
+	color: #90273A;
+	/* Colore del testo dei link */
+	text-decoration: none;
+	/* Rimuovi il sottolineato dai link */
+	padding: 5px 10px;
+	/* Aggiungi spazio intorno ai link */
+	border: 1px solid #90273A;
+	/* Aggiungi un bordo ai link */
+	border-radius: 5px;
+	/* Rendi i link arrotondati */
+	margin: 0 10px;
+	/* Aggiungi spazio tra i link */
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.links a:hover {
+	background-color: #90273A;
+	/* Cambia il colore di sfondo dei link al passaggio del mouse */
+	color: white;
+	/* Cambia il colore del testo dei link al passaggio del mouse */
+}
+
+.sec-3 {
+	position: relative;
+	padding: 100px;
+}
+
+
+.sec-3 h2 {
+	font-size: 3.5em;
+	margin-bottom: 10px;
+	color: #fff;
+}
+
+.sec-3 h3 {
+	font-size: 1.5em;
+	margin-bottom: 10px;
+	color: #fff;
+}
+
+.sec-3 p {
+	font-size: 1.2em;
+	color: #fff;
+	font-weight: 50;
+	text-align: justify;
+}
+.sec-3-content {
+	display: flex;
+	justify-content: space-between;
+	/* Allinea gli elementi ai lati opposti */
+	align-items: center;
+	margin-top: 10px;
+}
+

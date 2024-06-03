@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse Website</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+	<header>
+		<a href="/" class="logo">Siw-PeakPulse</a>
+		<h1 class="section-title">INFO ESPERTO</h1>
+		<ul>
+			<li><a href="/" class="active">Home</a></li>
+		</ul>
+	</header>
+	<div class="info-section" id="info">
+		<div class="info-esperto">
+			<div class="info-content">
+				<div class="nome-cognome" th:text="${esperto.nome} + ' ' + ${esperto.cognome}"></div>
+				<div class="anno-di-nascita">
+					<h3>Data di Nascita:</h3>
+					<div th:if="${esperto.nascita != null}">
+						<div class="nascita-testo" th:text="${#temporals.format(esperto.nascita, 'dd-MM-yyyy')}"></div>
+					</div>
+					<div th:if="${esperto.nascita == null}">
+						Non disponibile
+					</div>
+				</div>
+				<div class="descrizione">
+					<h3>Descrizione:</h3>
+					<div class="descrizione-testo" th:text="${esperto.descrizione}"></div>
+					<div th:if="${esperto.descrizione == null}">
+						Non disponibile
+					</div>
+				</div>
+			</div>
+			<div class="image-block">
+				<div class="info-image" th:if="${esperto.urlImage != null}">
+					<div class="image">
+						<img class="immagine" th:src="@{/images/__${esperto.urlImage}__}" alt="Esperto Image">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

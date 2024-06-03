@@ -27,7 +27,8 @@ header {
 }
 
 
-header .logo {
+header .logo,
+.section-title {
 	color: #fff;
 	font-weight: 700;
 	text-decoration: none;
@@ -143,35 +144,35 @@ section img#montagne_front {
 }
 
 .sec-2 {
-    background-color: #fff;
-    padding-top: 100px;
-    padding-bottom: 100px;
+	background-color: #fff;
+	padding-top: 100px;
+	padding-bottom: 100px;
 }
 
 .sec-2-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .ss-image-block {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .ss-block-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
 }
 
 .ss-block-content img {
-    max-width: 100%;
-    height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 .ss-image-block img {
@@ -184,25 +185,25 @@ section img#montagne_front {
 }
 
 .links {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+	display: flex;
+	justify-content: center;
+	width: 100%;
 }
 
 .links a {
-    color: #90273A;
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 1px solid #90273A;
-    border-radius: 5px;
-    font-size: 20px;
-    font-weight: 400;
-    margin: 20px;
+	color: #90273A;
+	text-decoration: none;
+	padding: 5px 10px;
+	border: 1px solid #90273A;
+	border-radius: 5px;
+	font-size: 20px;
+	font-weight: 400;
+	margin: 20px;
 }
 
 .links a:hover {
-    background-color: #90273A;
-    color: white;
+	background-color: #90273A;
+	color: white;
 }
 
 .sec-3 {
@@ -276,6 +277,7 @@ section img#montagne_front {
 	align-items: start;
 	justify-content: space-between;
 }
+
 .map-container {
 	width: 80%;
 	margin-right: 20px;
@@ -329,3 +331,73 @@ section img#montagne_front {
 	height: 30px
 }
 
+.info-section {
+    position: relative;
+	width: 100%;
+	padding: 50px;
+	margin-top: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+    color: #90273A;
+    background-color: #fff;
+}
+
+.info-esperto {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Ensures space between text and image */
+    width: 100%;
+    align-items: center; /* Align items at the start of the container */
+}
+
+.info-content {
+   	width: 100%;
+    padding: 20px;
+}
+
+.nome-cognome {
+    font-size: 3em;
+}
+
+.anno-di-nascita  h3{
+	font-size: 1.5em;
+    margin-top: 20px;
+    text-align: justify;
+}
+
+.descrizione h3 {
+	font-size: 1.5em;
+	margin-top: 20px;
+	
+}
+.nascita-testo {
+	margin-top: 10px;
+	font-size: 20px;
+	font-weight: 50;
+	text-align: justify;
+}
+
+.descrizione-testo {
+	margin-top: 10px;
+	font-size: 20px;
+	font-weight: 50;
+	text-align: justify;
+}
+
+.image-block {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.image img {
+    width: 100%;
+    height: auto;
+}
+
+.description-text {
+    margin-top: 10px;
+    text-align: center;
+}

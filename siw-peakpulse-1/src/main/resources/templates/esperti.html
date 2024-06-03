@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse Website</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+	<header>
+		<a href="/" class="logo">Siw-PeakPulse</a>
+		<ul>
+			<li><a href="/" class="active">Home</a></li>
+		</ul>
+	</header>
+	<div class="info-section" id="info">
+		<h1 class="section-title">LISTA ESPERTI</h1>
+		<div class="list-content">
+			<ul class="list" th:if="${!esperti.isEmpty()}">
+				<li class="list-item" th:each="esperto : ${esperti}">
+					<a class="list-link" th:href="@{'/esperto' + '/' + ${esperto.id}}"
+						th:text="${esperto.nome} + ' ' + ${esperto.cognome}"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -71,7 +71,7 @@ section {
 	overflow: hidden;
 }
 
-section::before{
+section::before {
 	content: '';
 	position: absolute;
 	bottom: 0;
@@ -143,76 +143,66 @@ section img#montagne_front {
 }
 
 .sec-2 {
-	background-color: #fff;
+    background-color: #fff;
+    padding-top: 100px;
+    padding-bottom: 100px;
 }
 
 .sec-2-content {
-	display: flex;
-	justify-content: space-between;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ss-image-block {
-	flex: 1;
-	/* Le immagini occupano lo stesso spazio disponibile */
-	margin: 10px;
-	/* Aggiungi margine tra le immagini */
-	display: flex;
-	/* Abilita il layout flessibile per le immagini */
-	justify-content: center;
-	/* Centra le immagini lungo l'asse orizzontale */
-	align-items: center;
-	/* Centra le immagini lungo l'asse verticale */
-
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ss-block-content {
-	width: 100%;
-	/* Imposta la larghezza delle immagini al 100% del contenitore */
-	text-align: center;
-	/* Centra il contenuto all'interno del blocco dell'immagine */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .ss-block-content img {
-	max-width: 80%;
-	/* Imposta la larghezza massima dell'immagine al 100% */
-	height: auto;
-	/* Imposta l'altezza automaticamente in base alla larghezza specificata */
+    max-width: 100%;
+    height: auto;
+}
+
+.ss-image-block img {
+	width: 90%;
+	margin-left: 10px;
+	/* Imposta la larghezza automaticamente in base all'altezza specificata */
+	margin-right: 10px;
+	/* Aggiunge spazio tra l'immagine e il testo */
+	margin-top: 10px;
 }
 
 .links {
-	display: flex;
-	flex-direction: row;
-	/* Disponi i link in riga */
-	justify-content: center;
-	/* Centra i link lungo l'asse orizzontale */
-	align-items: center;
-	/* Centra i link lungo l'asse verticale */
-	margin-top: 10px;
-	/* Aggiungi spazio superiore tra le immagini e i link */
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .links a {
-	color: #90273A;
-	/* Colore del testo dei link */
-	text-decoration: none;
-	/* Rimuovi il sottolineato dai link */
-	padding: 5px 10px;
-	/* Aggiungi spazio intorno ai link */
-	border: 1px solid #90273A;
-	/* Aggiungi un bordo ai link */
-	border-radius: 5px;
-	/* Rendi i link arrotondati */
-	margin: 0 10px;
-	/* Aggiungi spazio tra i link */
-	font-size: 16px;
-	font-weight: 400;
+    color: #90273A;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #90273A;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 20px;
 }
 
 .links a:hover {
-	background-color: #90273A;
-	/* Cambia il colore di sfondo dei link al passaggio del mouse */
-	color: white;
-	/* Cambia il colore del testo dei link al passaggio del mouse */
+    background-color: #90273A;
+    color: white;
 }
 
 .sec-3 {
@@ -239,11 +229,103 @@ section img#montagne_front {
 	font-weight: 50;
 	text-align: justify;
 }
+
 .sec-3-content {
 	display: flex;
 	justify-content: space-between;
 	/* Allinea gli elementi ai lati opposti */
 	align-items: center;
 	margin-top: 10px;
+}
+
+.ts-image-block img {
+	max-height: 400px;
+	/* Imposta l'altezza massima dell'immagine */
+	width: auto;
+	/* Imposta la larghezza automaticamente in base all'altezza specificata */
+	margin-right: 20px;
+	/* Aggiunge spazio tra l'immagine e il testo */
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.sec-4 {
+	background-color: #fff;
+	height: auto;
+	width: 100%;
+	position: relative;
+	padding: 100px;
+}
+
+.sec-4 h2 {
+	font-size: 3.5em;
+	margin-bottom: 10px;
+	color: #90273A;
+}
+
+.contacts-container h3 {
+	font-size: 1.75em;
+	margin-bottom: 10px;
+	color: #90273A;
+}
+
+.sec-4-container {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+	align-items: start;
+	justify-content: space-between;
+}
+.map-container {
+	width: 80%;
+	margin-right: 20px;
+}
+
+.contacts-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.contacts-container p {
+	margin: 10px;
+	justify-content: start;
+	color: black;
+}
+
+.socials {
+	margin: 20px;
+	display: inline-block;
+	/* Imposta il display a inline-block per centrare l'icona */
+}
+
+.socials img {
+	display: block;
+	/* Imposta il display a block per centrare l'immagine */
+	margin: 0 auto;
+	/* Centra l'immagine orizzontalmente */
+}
+
+.social-list {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	/* Riduci la distanza tra le immagini */
+}
+
+.social-list a {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	margin-right: auto;
+	/* Imposta un margine a destra per spingere il secondo link più a sinistra */
+}
+
+.social-list img {
+	max-width: 100%;
+	height: 30px
 }
 

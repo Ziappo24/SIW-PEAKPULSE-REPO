@@ -9,24 +9,24 @@
 <body>
 	<header>
 		<a href="/" class="logo">Siw-PeakPulse</a>
-		<h1 class="section-title">LISTA ESPERTI</h1>
+		<h1 class="section-title">LISTA ATTIVITA'</h1>
 		<ul>
 			<li><a href="/" class="active">Home</a></li>
 		</ul>
 	</header>
 	<div class="info-section" id="info">
 		<div class="list-content">
-			<ul class="list" th:if="${!esperti.isEmpty()}">
-				<li class="list-item" th:each="esperto : ${esperti}">
+			<ul class="list" th:if="${!listaAttivita.isEmpty()}">
+				<li class="list-item" th:each="attivita : ${listaAttivita}">
 					<div class="image-box">
-						<div class="info-image-box" th:if="${esperto.urlImage != null}">
+						<div class="info-image-box" th:if="${attivita.urlImage != null}">
 							<div class="image">
-								<img class="immagine" th:src="@{/images/__${esperto.urlImage}__}" alt="Esperto Image">
+								<img class="immagine" th:src="@{/images/__${attivita.urlImage}__}" alt="Attivita Image">
 							</div>
 						</div>
 					</div>
-					<a class="list-link" th:href="@{'/esperto' + '/' + ${esperto.id}}"
-						th:text="${esperto.nome} + ' ' + ${esperto.cognome}"></a>
+					<a class="list-link" th:href="@{'/attivita' + '/' + ${attivita.id}}"
+						th:text="${attivita.nome}"></a>
 				</li>
 			</ul>
 		</div>

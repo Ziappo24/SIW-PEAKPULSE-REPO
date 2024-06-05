@@ -22,14 +22,14 @@ public class EspertoController {
 	EspertoService espertoService;
 	
 	@GetMapping("/esperto/{id}")
-	public String getCuoco(@PathVariable("id") Long id, Model model) {
+	public String getEsperto(@PathVariable("id") Long id, Model model) {
 		Esperto esperto = espertoService.findById(id);
 		model.addAttribute("esperto", esperto);
 		return "esperto.html";
 	}
 
 	@GetMapping("/esperti")
-	public String ShowCuoco(Model model) {
+	public String ShowEsperto(Model model) {
 		model.addAttribute("esperti", this.espertoService.findAll());
 		return "esperti.html";
 	}

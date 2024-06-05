@@ -23,7 +23,7 @@ public class EspertoService {
 	}
 	
 	
-	public Object findByName(String nome) {
+	public Object findByNome(String nome) {
 		return espertoRepository.findByNome(nome);
 	}
 	

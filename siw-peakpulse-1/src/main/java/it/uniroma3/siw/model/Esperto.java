@@ -37,10 +37,18 @@ public class Esperto {
 	@Column(length = 5000)
 	public String descrizione;
 	
-	/* esegue un joincolumn standard con la tabella ricetta, che avrà una colonna cuoco_id*/
-//	@OneToMany(mappedBy = "esperto", fetch = FetchType.EAGER)
-//	private List<Attivita> attivita;
+
+	@OneToMany(mappedBy = "esperto", fetch = FetchType.EAGER)
+	private List<Attivita> attivita;
 	
+	public List<Attivita> getAttivita() {
+		return attivita;
+	}
+
+	public void setAttivita(List<Attivita> attivita) {
+		this.attivita = attivita;
+	}
+
 	public String getCognome() {
 		return cognome;
 	}
@@ -64,15 +72,6 @@ public class Esperto {
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
-
-
-//	public List<Ricetta> getRicette() {
-//		return ricette;
-//	}
-//
-//	public void setRicette(List<Ricetta> ricette) {
-//		this.ricette = ricette;
-//	}
 	
 	public long getId() {
 		return id;

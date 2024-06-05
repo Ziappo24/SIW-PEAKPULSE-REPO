@@ -93,13 +93,13 @@ public class AttivitaController {
 		return "/esperto/manageAttivita.html";
 	}
 
-	@GetMapping("/admin/manageRicette")
+	@GetMapping("/admin/manageAttivita")
 	public String ShowAttivitaAdmin(Model model) {
 		model.addAttribute("listaAttivita", this.attivitaService.findAll());
 		return "/admin/manageAttivita.html";
 	}
 
-	@GetMapping("/cuoco/manageRicette")
+	@GetMapping("/esperto/manageAttivita")
 	public String ShowAttivitaEsperto(Model model) {
 		model.addAttribute("listaAttivita", this.attivitaService.findAll());
 		return "/esperto/manageAttivita.html";
@@ -154,7 +154,7 @@ public class AttivitaController {
 		model.addAttribute("espertoId", currentEsperto.getId());
 		model.addAttribute("attivita", attivita);
 		model.addAttribute("userDetails", tempUser); // Aggiungi userDetails al modello
-		return "cuoco/formNewAttivita.html";
+		return "esperto/formNewAttivita.html";
 	}
 
 	@PostMapping("/esperto/attivita")
@@ -194,8 +194,8 @@ public class AttivitaController {
 		}
 	}
 
-	@GetMapping(value = "/admin/addEsperto/{idRicetta}")
-	public String addEsperto(@PathVariable("idEsperto") Long attivitaId, Model model) {
+	@GetMapping(value = "/admin/addEsperto/{idAttivita}")
+	public String addEsperto(@PathVariable("idAttivita") Long attivitaId, Model model) {
 		model.addAttribute("esperti", espertoService.findAll());
 		model.addAttribute("attivita", attivitaRepository.findById(attivitaId).get());
 		return "/admin/addEsperto.html";
@@ -207,17 +207,17 @@ public class AttivitaController {
 		return "admin/formUpdateAttivita.html";
 	}
 
-	@GetMapping(value = "/cuoco/formUpdateAttivita/{id}/{username}")
+	@GetMapping(value = "/esperto/formUpdateAttivita/{id}/{username}")
 	public String formUpdateAttivitaEsperto(@PathVariable("id") Long id, @PathVariable("username") String username,
 			Model model, RedirectAttributes redirectAttributes) {
 		// Recupera l'utente dal repository
 		Credentials tempUser = credentialsRepository.findByUsername(username);
 		User currentUser = tempUser.getUser();
 
-		// Recupera la ricetta dal repository
+		// Recupera L'attivita dal repository
 		Attivita attivita = attivitaRepository.findById(id).orElse(null);
 
-		// Verifica se il cuoco della ricetta è il cuoco corrente
+		// Verifica se esperto dell'attività è il esperto corrente
 		if (attivita == null || attivita.getEsperto() == null || !attivita.getEsperto().getNome().equals(currentUser.getNome())
 				|| !attivita.getEsperto().getCognome().equals(currentUser.getCognome())) {
 			// Gestisci il caso di accesso non autorizzato
@@ -232,7 +232,7 @@ public class AttivitaController {
 	}
 
 	@GetMapping(value = "/admin/setEspertoToAttivita/{espertoId}/{attivitaId}")
-	public String setCuocoToRicetta(@PathVariable("espertoId") Long espertoId, @PathVariable("attivitaId") Long attivitaId,
+	public String setEspertoToAttivita(@PathVariable("espertoId") Long espertoId, @PathVariable("attivitaId") Long attivitaId,
 			Model model) {
 
 		Esperto esperto = this.espertoService.findById(espertoId);
@@ -325,7 +325,7 @@ public class AttivitaController {
 		return "admin/addAttrezzatura.html";
 	}
 
-	@GetMapping(value = "/esperto/removeIngredienteFromRicetta/{attrezzaturaId}/{attivitaId}")
+	@GetMapping(value = "/esperto/removeAttrezzaturaFromAttivita/{attrezzaturaId}/{attivitaId}")
 	public String removeAttrezzaturaFromAttivitaEsperto(@PathVariable("attrezzaturaId") Long attrezzaturaId,
 			@PathVariable("attivitaId") Long attivitaId, Model model) {
 		Attivita attivita = this.attivitaRepository.findById(attivitaId).get();

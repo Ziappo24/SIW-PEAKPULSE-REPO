@@ -332,46 +332,49 @@ section img#montagne_front {
 }
 
 .info-section {
-    position: relative;
+	position: relative;
 	width: 100%;
 	padding: 50px;
 	margin-top: 100px;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
-    color: #90273A;
-    background-color: #fff;
+	color: #90273A;
+	background-color: #fff;
 }
 
 .info-esperto {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; /* Ensures space between text and image */
-    width: 100%;
-    align-items: center; /* Align items at the start of the container */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	/* Ensures space between text and image */
+	align-items: center;
+	/* Align items at the start of the container */
 }
 
 .info-content {
-   	width: 100%;
-    padding: 20px;
+	width: 100%;
+	padding: 20px;
 }
 
 .nome-cognome {
-    font-size: 3em;
+	font-size: 3em;
 }
 
-.anno-di-nascita  h3{
+.anno-di-nascita h3 {
 	font-size: 1.5em;
-    margin-top: 20px;
-    text-align: justify;
+	margin-top: 20px;
+	text-align: justify;
 }
 
 .descrizione h3 {
 	font-size: 1.5em;
 	margin-top: 20px;
-	
+
 }
+
 .nascita-testo {
 	margin-top: 10px;
 	font-size: 20px;
@@ -383,22 +386,25 @@ section img#montagne_front {
 	margin-top: 10px;
 	font-size: 20px;
 	text-align: justify;
+	margin-bottom: 10px;
 }
 
 .image-block {
-    padding: 20px;
-    display: flex;
-    align-items: center;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .image img {
-    width: 100%;
-    height: auto;
+	width: 100%;
+	max-width: 800px;
+	height: auto;
 }
 
 .description-text {
-    margin-top: 10px;
-    text-align: center;
+	margin-top: 10px;
+	text-align: center;
 }
 
 .list-item {
@@ -435,13 +441,14 @@ section img#montagne_front {
 	background-color: #90273A;
 	color: white;
 }
+
 .list {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
 	align-items: start;
 	text-align: justify;
-	justify-content:  flex-start;
+	justify-content: flex-start;
 	list-style: none;
 }
 
@@ -453,7 +460,6 @@ section img#montagne_front {
 .image-box {
 	padding: 10px;
 	align-items: center;
-	
 }
 
 .info-image-box img {
@@ -462,4 +468,35 @@ section img#montagne_front {
 	padding: 10px;
 }
 
+.search {
+	width: max-content;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: #f6f6f6;
 
+	transition: box-shadow 0.25s;
+	margin-bottom: 20px;
+}
+
+.search:focus-within {
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.75);
+}
+
+.search-input {
+	font-size: 16px;
+	font-family: "Mate SC";
+	color: #333333;
+	margin-left: 14px;
+	border: 10px;
+	outline: none;
+	border: none;
+	background: transparent;
+	width: 300px;
+}
+
+.search-input::placeholder,
+.search-icon {
+	color: rgba(0, 0, 0, 0.5);
+}

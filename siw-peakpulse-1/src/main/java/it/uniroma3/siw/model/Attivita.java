@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -33,12 +36,13 @@ public class Attivita {
 	public Esperto esperto;
 	
 
-	// @ManyToMany
-	// List<Attrezzatura> attrezzatureUtilizzate
+	 @ManyToMany
+	 private List<Attrezzatura> attrezzatureUtilizzate;
 	
 	
-	// @ManyToOne(mappedBy = "attivita")
-	// List<Recensione> recensioni
+	 @OneToMany(mappedBy = "attivita")
+	 private List<Recensione> recensioni;
+
 
 	public long getId() {
 		return id;
@@ -78,6 +82,22 @@ public class Attivita {
 
 	public void setEsperto(Esperto esperto) {
 		this.esperto = esperto;
+	}
+
+	public List<Attrezzatura> getAttrezzatureUtilizzate() {
+		return attrezzatureUtilizzate;
+	}
+
+	public void setAttrezzatureUtilizzate(List<Attrezzatura> attrezzatureUtilizzate) {
+		this.attrezzatureUtilizzate = attrezzatureUtilizzate;
+	}
+
+	public List<Recensione> getRecensioni() {
+		return recensioni;
+	}
+
+	public void setRecensioni(List<Recensione> recensioni) {
+		this.recensioni = recensioni;
 	}
 
 	@Override

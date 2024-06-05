@@ -41,6 +41,26 @@ public class Esperto {
 	@OneToMany(mappedBy = "esperto", fetch = FetchType.EAGER)
 	private List<Attivita> attivita;
 	
+
+	@OneToMany(mappedBy = "autore", fetch = FetchType.EAGER)
+	private List<Recensione> recensioni;
+	
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
+	public List<Recensione> getRecensioni() {
+		return recensioni;
+	}
+
+	public void setRecensioni(List<Recensione> recensioni) {
+		this.recensioni = recensioni;
+	}
+	
 	public List<Attivita> getAttivita() {
 		return attivita;
 	}

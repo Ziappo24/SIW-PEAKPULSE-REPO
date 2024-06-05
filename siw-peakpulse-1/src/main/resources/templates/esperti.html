@@ -14,23 +14,30 @@
 			<li><a href="/" class="active">Home</a></li>
 		</ul>
 	</header>
-	<div class="info-section" id="info">
-		<div class="list-content">
-			<ul class="list" th:if="${!esperti.isEmpty()}">
-				<li class="list-item" th:each="esperto : ${esperti}">
-					<div class="image-box">
-						<div class="info-image-box" th:if="${esperto.urlImage != null}">
-							<div class="image">
-								<img class="immagine" th:src="@{/images/__${esperto.urlImage}__}" alt="Esperto Image">
+		<div class="info-section" id="info">
+			<form th:action="@{/searchEsperti}" method="post">
+				<div class="search">
+					<span class=" search-icon material-symbols-outlined">ricerca</span>
+					<input class="search-input" type="text" name="nome" th:value="${nome}" placeholder="####" style="font-family: Graduate, serif;;">
+				</div>
+			</form>
+			<div class="list-content">
+				<ul class="list" th:if="${!esperti.isEmpty()}">
+					<li class="list-item" th:each="esperto : ${esperti}">
+						<div class="image-box">
+							<div class="info-image-box" th:if="${esperto.urlImage != null}">
+								<div class="image">
+									<img class="immagine" th:src="@{/images/__${esperto.urlImage}__}"
+										alt="Esperto Image">
+								</div>
 							</div>
 						</div>
-					</div>
-					<a class="list-link" th:href="@{'/esperto' + '/' + ${esperto.id}}"
-						th:text="${esperto.nome} + ' ' + ${esperto.cognome}"></a>
-				</li>
-			</ul>
+						<a class="list-link" th:href="@{'/esperto' + '/' + ${esperto.id}}"
+							th:text="${esperto.nome} + ' ' + ${esperto.cognome}"></a>
+					</li>
+				</ul>
+			</div>
 		</div>
-	</div>
 </body>
 
 </html>

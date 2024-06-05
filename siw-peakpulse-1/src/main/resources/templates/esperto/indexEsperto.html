@@ -92,8 +92,10 @@
 					<!-- Immagine 2 -->
 					<img src="/images/attivita.jpg" id="img2">
 					<!-- Link "Aggiungi" e "Gestisci" per l'immagine 2 -->
-					<div class="links">
+					<div class="links" th:if="${userDetails != null}">
 						<a href="/listaAttivita" class="add-link">Elenco Attività</a>
+<!--						<a th:href="@{'/esperto/formNewAttivita' + '/' + ${userDetails.username}}" class="add-link">Aggiungi Attività</a>-->
+<!--						<a href="/esperto/manageAttivita" class="add-link">Elenco Attività</a>-->
 					</div>
 				</div>
 			</div>
@@ -104,6 +106,8 @@
 					<!-- Link "Aggiungi" e "Gestisci" per l'immagine 3 -->
 					<div class="links">
 						<a href="/attrezzature" class="add-link">Elenco Attrezzature</a>
+<!--						<a href="/esperto/formNewAttrezzatura" class="add-link">Aggiungi Attrezzatura</a>-->
+<!--						<a href="/attrezzature" class="add-link">Elenco Attrezzature</a>-->
 					</div>
 				</div>
 			</div>

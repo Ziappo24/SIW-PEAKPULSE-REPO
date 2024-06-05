@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Peak Pulse Info Attività</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <header>
+        <a href="/" class="logo">Siw-PeakPulse</a>
+        <h1 class="section-title">INFO ATTIVITÀ</h1>
+        <ul>
+            <li><a href="/" class="active">Home</a></li>
+        </ul>
+    </header>
+    <div class="info-section" id="info">
+        <div class="info-esperto">
+            <div class="info-content">
+                <div class="nome-cognome" th:text="${attivita.nome}"></div>
+                <div class="descrizione">
+                    <h3>Descrizione:</h3>
+                    <div class="descrizione-testo" th:text="${attivita.descrizione}"></div>
+                    <div th:if="${attivita.descrizione == null}">
+                        Non disponibile
+                    </div>
+                    <div th:if="${attivita.esperto}">
+                        <h3>Esperto:</h3>
+                        <div class="descrizione" th:if="${attivita.esperto != null}">
+                            <div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"></div>
+                            <br>
+                            <a th:href="@{'/admin/addEsperto' + '/' + ${attivita.id}}" class="button-link">
+                                <button type="button">Modifica Esperto</button>
+                            </a>
+                        </div>
+                    </div>
+                    <div th:unless="${attivita.esperto}">
+                        <p>Non c'è nessun esperto per quest' attività'.</p>
+                        <a th:href="@{'/admin/addEsperto' + '/' + ${attivita.id}}" class="button-link">
+                            <button type="button">Aggiungi Esperto</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="descrizione" th:if="${attivita.esperto == null}" style="font-size: 20px;">
+                    L'esperto autore di questa attività non è disponibile!
+                </div>
+            </div>
+            <div class="image-block">
+                <div class="info-image" th:if="${attivita.urlImage != null}">
+                    <div class="image">
+                        <img class="immagine" th:src="@{/images/__${attivita.urlImage}__}" alt="Attivita Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="info-section" id="attrezzature-utilizzate" style="background-color: unset;">
+        <div class="list-content">
+            <ul class="list" th:if="${!attivita.attrezzatureUtilizzate.isEmpty()}">
+                <li class="list-item" th:each="attrezzatura : ${attivita.attrezzatureUtilizzate}">
+                    <div class="image-box">
+                        <div class="info-image-box" th:if="${attrezzatura.urlImage != null}">
+                            <div class="image">
+                                <img class="immagine" th:src="@{/images/__${attrezzatura.urlImage}__}" alt="Attrezzatura Image">
+                            </div>
+                        </div>
+                    </div>
+                    <a class="list-link" th:href="@{'/attrezzatura' + '/' + ${attrezzatura.id}}" th:text="${attrezzatura.nome}" style="color: white;"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="info-section" id="attrezzature-utilizzate">
+        <div class="list-content">
+            <ul class="list" th:if="${!attivita.recensioni.isEmpty()}">
+                <li class="list-item" th:each="recensione : ${attivita.recensioni}">
+                    <!-- implementare la visualizzazione delle recensioni -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

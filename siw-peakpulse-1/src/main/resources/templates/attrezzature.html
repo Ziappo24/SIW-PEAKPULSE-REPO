@@ -15,6 +15,13 @@
 		</ul>
 	</header>
 	<div class="info-section" id="info">
+		<form th:action="@{/searchAttrezzature}" method="post">
+			<div class="search">
+				<span class=" search-icon material-symbols-outlined">ricerca</span>
+				<input class="search-input" type="text" name="nome" th:value="${nome}" placeholder="####"
+					style="font-family: Graduate, serif;;">
+			</div>
+		</form>
 		<div class="list-content">
 			<ul class="list" th:if="${!attrezzature.isEmpty()}">
 				<li class="list-item" th:each="attrezzatura : ${attrezzature}">
@@ -26,7 +33,8 @@
 							</div>
 						</div>
 					</div>
-					<a class="list-link" th:href="@{'/attrezzatura' + '/' + ${attrezzatura.id}}" th:text="${attrezzatura.nome}"></a>
+					<a class="list-link" th:href="@{'/attrezzatura' + '/' + ${attrezzatura.id}}"
+						th:text="${attrezzatura.nome}"></a>
 				</li>
 			</ul>
 		</div>

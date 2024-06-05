@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import it.uniroma3.siw.model.Attivita;
-import it.uniroma3.siw.model.Esperto;
 import it.uniroma3.siw.repository.AttivitaRepository;
 import it.uniroma3.siw.service.AttivitaService;
 

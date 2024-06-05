@@ -447,6 +447,7 @@ section img#montagne_front {
 
 .list a {
 	text-decoration: none;
+	text-align: center;
 }
 
 .image-box {
@@ -458,7 +459,7 @@ section img#montagne_front {
 .info-image-box img {
 	height: 200px;
 	width: 300px;
-	padding: 10px	
+	padding: 10px;
 }
 
 

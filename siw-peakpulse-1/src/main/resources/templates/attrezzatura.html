@@ -2,14 +2,14 @@
 <html>
 
 <head>
-	<title>Peak Pulse Info Attività</title>
+	<title>Peak Pulse Info Attrezzatura</title>
 	<link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
 	<header>
 		<a href="/" class="logo">Siw-PeakPulse</a>
-		<h1 class="section-title">INFO ATTIVITA</h1>
+		<h1 class="section-title">INFO ATTREZZATURA</h1>
 		<ul>
 			<li><a href="/" class="active">Home</a></li>
 		</ul>
@@ -17,19 +17,19 @@
 	<div class="info-section" id="info">
 		<div class="info-esperto">
 			<div class="info-content">
-				<div class="nome-cognome" th:text="${attivita.nome}"></div>
+				<div class="nome-cognome" th:text="${attrezzatura.nome}"></div>
 				<div class="descrizione">
 					<h3>Descrizione:</h3>
-					<div class="descrizione-testo" th:text="${attivita.descrizione}"></div>
-					<div th:if="${attivita.descrizione == null}">
+					<div class="descrizione-testo" th:text="${attrezzatura.descrizione}"></div>
+					<div th:if="${attrezzatura.descrizione == null}">
 						Non disponibile
 					</div>
 				</div>
 			</div>
 			<div class="image-block">
-				<div class="info-image" th:if="${attivita.urlImage != null}">
+				<div class="info-image" th:if="${attrezzatura.urlImage != null}">
 					<div class="image">
-						<img class="immagine" th:src="@{/images/__${attivita.urlImage}__}" alt="Esperto Image">
+						<img class="immagine" th:src="@{/images/__${attrezzatura.urlImage}__}" alt="Attrezzatura Image">
 					</div>
 				</div>
 			</div>

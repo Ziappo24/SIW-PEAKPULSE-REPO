@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
+
+.mate-sc-regular {
+  font-family: "Graduate", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.header-title-nav-wrapper {
+    display: flex;
+    justify-content: space-between; /* Allinea gli elementi ai lati opposti */
+    align-items: center;
+    margin-top: 20px;
+}
+
+.header-title-text {
+    font-size: 40px;
+    font-weight: 550;
+    margin-right: 20px;
+    margin-left: 20px;
+   	font-family: "Graduate";
+   	font-style: normal;
+    text-transform: none;
+    letter-spacing: 0em;
+    line-height: 1.4em;
+}
+
+.header-nav-list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-family: "Graduate";
+}
+
+.header-nav-item a {
+    margin-right: 20px;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: none;
+    color: white;
+}
+
+.no-underline {
+  text-decoration: none;
+   text-transform: none; 
+}
+
+
+/* Opzionale: Cambia il colore del testo del titolo */
+#site-title {
+    color: white;
+    text-decoration: none;
+}
+
+/* Modifica in base alla larghezza dello schermo */
+@media screen and (max-width: 768px) {
+    .header-nav-item {
+        font-size: 16px; /* Riduci la dimensione del testo per schermi più piccoli */
+    }
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Graduate";
+}
+
+body{
+    background-color: #90273A;
+    background: linear-gradient(#90273A, #90273A);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container{
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 550px;
+}
+
+.container p{
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
+}
+
+.container span{
+    font-size: 16px;
+}
+
+.container a{
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0 10px;
+}
+
+.container button{
+    background-color: #90273A;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.container button.register-button{
+    background-color: transparent;
+    border-color: #fff;
+    color: white;
+}
+.toggle-panel .register-button a {
+    color: white; /* Cambia il colore del testo del link del bottone a bianco */
+}
+
+.container form{
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+}
+
+.input{
+    background-color: #eee;
+    border: none;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+}
+input {
+	width: 100%;
+}
+
+.form-container{
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+.sign-in{
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+
+.sign-up{
+    left: 0;
+    width: 100%;
+    max-height: 100%;
+    z-index: 1;
+}
+
+.register-button {
+    display: inline-block;
+    color: white;
+    font-size: 14px;
+    padding: 10px 45px;
+    border: 1px solid white;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.register-button a {
+    color: white !important; /* Imposta il colore del testo del link all'interno del bottone come importante */
+}
+
+
+.toggle-container{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 150px 0 0 100px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toggle{
+    background-color: #90273A;
+    background: linear-gradient(#90273A, #90273A);
+    color: white;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+
+
+.toggle-panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 30px;
+    text-align: center;
+    top: 0;
+}
+
+.toggle-panel h1 {
+    white-space: nowrap; /* Imposta il testo dell'h1 su una sola riga */
+}
+
+footer {
+	margin-top: 30px; /* Aggiunge spazio sopra il footer */
+    text-align: center; /* Centra il contenuto all'interno del footer */
+}
+
+.socials {
+    display: inline-block; /* Imposta il display a inline-block per centrare l'icona */
+}
+
+.socials img {
+    display: block; /* Imposta il display a block per centrare l'immagine */
+    margin: 0 auto; /* Centra l'immagine orizzontalmente */
+}
+
+.footer-nav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Riduci la distanza tra le immagini */
+}
+
+.footer-nav-list a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-right: auto; /* Imposta un margine a destra per spingere il secondo link più a sinistra */
+}
+
+.footer-nav-list img {
+    max-width: 100%;
+    height: 30px
+}
+
+/* Stile per il titolo di congratulazioni */
+/* Stile per il titolo di congratulazioni */
+.inserisci {
+    width: 100%;
+    text-align: center; /* Centro il testo */
+    display: flex;   
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+/* Stile per il titolo di congratulazioni */
+.inserisci h1 {
+    font-size: 24px; /* Dimensione del testo ridotta */
+    margin-top: 0px; /* Margine dall'alto per spostare il titolo leggermente in basso */
+    text-align: center; /* Centro il testo */
+}
+
+/* Stile per centralizzare Nome, Cognome ed Email */
+.inserisci div {
+    text-align: center; /* Centro il testo nei div */
+    margin: 20px 0; /* Margine verticale tra i div */
+}
+
+/* Stile per il box grigio attorno a Nome, Cognome ed Email */
+.inserisci div span {
+    display: inline-block; /* Permette di applicare il padding */
+    background-color: #f0f0f0; /* Colore di sfondo grigio chiaro */
+    padding: 10px 20px; /* Spaziatura interna */
+    border-radius: 10px; /* Angoli arrotondati */
+    width: 100%; /* Imposta una larghezza per centrare meglio il testo */
+    max-width: 400px; /* Limita la larghezza massima */
+    box-sizing: border-box; /* Include padding e bordo nella larghezza totale */
+    text-align: center; /* Allinea il testo a sinistra all'interno del box */
+    margin: 0 auto; /* Centra il box orizzontalmente */
+}

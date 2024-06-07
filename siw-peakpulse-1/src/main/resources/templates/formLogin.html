@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse Login</title>
+	<link rel="stylesheet" href="/css/login-style.css">
+</head>
+	<body>
+		<header>
+			<!-- Title and Nav wrapper-->
+			<div class="header-title-nav-wrapper">
+				<div class="header-title">
+					<div class="header-title-text">
+						<a id="site-title" href="/">PeakPulse</a>
+					</div>
+				</div>
+				<div class="header-nav">
+					<div class="header-nav-wrapper">
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="container" id="container">
+		        <div class="form-container sign-in">
+		            <form th:action="@{/login}" method="POST">
+		                <h1>Login</h1>
+		                <span>Usa la tua email e password</span>
+						<div class="input">
+							<label for="username"><strong>Username:</strong></label>
+							<input name="username" type="text" required />
+						</div>
+						<div class="input">
+							<label for="password"><strong>Password:</strong></label>
+							<input name="password" type="password" required />
+						</div>
+						<div th:if="${messaggioErrore != null}">
+							<span th:text="${messaggioErrore}"> Messaggio Errore </span>
+						</div>
+		                <button type="submit">Login</button>
+		            </form>
+		        </div>
+		        <div class="toggle-container">
+		            <div class="toggle">		                
+						<div class="toggle-panel toggle-right">
+						    <h1>Benvenuto!</h1>
+						    <p>Registrati con i tuoi dati personali per utilizzare tutte le funzionalità del sito</p>
+						    <a class="register-button" th:href="@{/register}">Registrati</a>
+						</div>
+		            </div>
+		        </div>
+		    </div>
+	</body>
+</html>

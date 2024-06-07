@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse New Attività</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+	<header>
+		<a href="/" class="logo">Siw-PeakPulse</a>
+		<h1 class="section-title">CREA ATTIVITÀ</h1>
+		<ul>
+			<li><a href="/" class="active">Home</a></li>
+		</ul>
+	</header>
+	
+	<div class="container" id="container">
+		<div class="form-container inserisci">
+			<form th:action="@{/esperto/attivita}" method="POST" th:object="${attivita}" enctype="multipart/form-data">
+				<h1>Inserisci Attivita</h1>
+				<span class="span-text">Inserisci di seguito tutte le informazioni richieste</span>
+				<input required type="text" placeholder="Nome" th:field="${attivita.nome}">
+				<input required type="text" placeholder="Descrizione" th:field="${attivita.descrizione}">
+				<input required type="file" placeholder="URL Immagine" name="immagine" >
+				<input type="hidden" name="username" th:value="${userDetails.username}"/>
+				<button>Inserisci</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+.mate-sc-regular {
+  font-family: "Mate SC", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.header-title-nav-wrapper {
+    display: flex;
+    justify-content: space-between; /* Allinea gli elementi ai lati opposti */
+    align-items: center;
+    margin-top: 20px;
+}
+
+.header-title-text {
+    font-size: 30px;
+    font-weight: 500;
+    margin-right: 20px;
+    margin-left: 20px;
+   	font-family: Poppins;
+   	font-style: normal;
+    text-transform: none;
+    letter-spacing: 0em;
+    line-height: 1.4em;
+}
+
+.header-nav-list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-family: "Mate SC";
+}
+
+.header-nav-item a {
+    margin-right: 20px;
+    font-size: 18px;
+    color: black;
+	opacity: 1;
+	font-family: "Mate SC";
+	text-decoration: none;
+}
+
+.no-underline {
+  text-decoration: none;
+   text-transform: none;
+   
+}
+
+
+/* Opzionale: Cambia il colore del testo del titolo */
+#site-title {
+    color: black;
+    text-decoration: none;
+}
+
+/* Modifica in base alla larghezza dello schermo */
+@media screen and (max-width: 768px) {
+    .header-nav-item {
+        font-size: 16px; /* Riduci la dimensione del testo per schermi più piccoli */
+    }
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Mate SC";
+}
+
+body{
+    background-color: rgb(238, 222, 208);
+    background: linear-gradient(to right, rgb(238, 222, 208), rgb(221, 191, 164));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container{
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 70%;
+    min-height: 480px;
+}
+.container span{
+    font-size: 1.1em;
+}
+
+.container button{
+    background-color: rgb(202, 152, 106);
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.container form{
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+}
+
+.container input{
+    background-color: #eee;
+    border: none;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+}
+
+.form-container inserisci {
+	justify-content: center;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+
+.aggiungi-cuoco{
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.inline-flex-container {
+    display: inline-flex;
+    align-items: center; /* Per allineare gli elementi verticalmente al centro */
+    gap: 20px; /* Spazio tra i figli */
+}
+
+
+footer {
+	margin-top: 30px; /* Aggiunge spazio sopra il footer */
+    text-align: center; /* Centra il contenuto all'interno del footer */
+}
+
+.socials {
+    display: inline-block; /* Imposta il display a inline-block per centrare l'icona */
+}
+
+.socials img {
+    display: block; /* Imposta il display a block per centrare l'immagine */
+    margin: 0 auto; /* Centra l'immagine orizzontalmente */
+}
+
+.footer-nav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Riduci la distanza tra le immagini */
+}
+
+.footer-nav-list a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-right: auto; /* Imposta un margine a destra per spingere il secondo link più a sinistra */
+}
+
+.footer-nav-list img {
+    max-width: 100%;
+    height: 30px
+}

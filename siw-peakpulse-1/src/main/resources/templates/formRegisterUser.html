@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse Register</title>
+	<link rel="stylesheet" href="/css/login-style.css">
+</head>
+
+<body>
+	<header>
+		<!-- Title and Nav wrapper-->
+		<div class="header-title-nav-wrapper">
+			<div class="header-title">
+				<div class="header-title-text">
+					<a id="site-title" href="/">PeakPulse</a>
+				</div>
+			</div>
+			<div class="header-nav">
+				<div class="header-nav-wrapper">
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="container" id="container">
+		<div class="form-container sign-up">
+			<form th:action="@{/register}" method="POST">
+				<h1>Registrazione nuovo utente</h1>
+				<div>
+					<span>Usa la tua mail per registrati</span>
+				</div>
+				<div class="input">
+					<input type="text" placeholder="Username" required th:field="${credentials.username}" />
+					<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
+						th:style="'color:red'">
+					</span>
+				</div>
+				<div class="input">
+					<input type="password" placeholder="Password" required th:field="${credentials.password}" />
+					<span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
+						th:style="'color:red'">
+					</span>
+				</div>
+				<div class="input">
+					<input type="text" placeholder="Nome" required th:field="${user.nome}" />
+					<span th:if="${#fields.hasErrors('user.nome')}" th:errors="${user.nome}" th:style="'color:red'">
+					</span>
+				</div>
+				<div class="input">
+					<input type="text" placeholder="Cognome" required th:field="${user.cognome}" />
+					<span th:if="${#fields.hasErrors('user.cognome')}" th:errors="${user.cognome}"
+						th:style="'color:red'">
+					</span>
+				</div>
+				<div class="input">
+					<input type="text" placeholder="Email" required th:field="${user.email}" />
+					<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
+					</span>
+				</div>
+				<div class="input">
+					<input type="date" placeholder="Data Di Nascita (dd-MM-yyyy)" th:field="${user.nascita}">
+					<span th:if="${#fields.hasErrors('user.nascita')}" th:errors="${user.nascita}"
+						th:style="'color:red'">
+					</span>
+				</div>
+				<div class="input">
+					<input required type="text" placeholder="URL Immagine" th:field="${user.urlImage}">
+					<span th:if="${#fields.hasErrors('user.urlImage')}" th:errors="${user.urlImage}"
+						th:style="'color:red'">
+					</span>
+				</div>
+				<button>Registrati</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

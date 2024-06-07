@@ -22,7 +22,7 @@
 			</div>
 		</form>
 		<div class="list-content">
-			<ul class="list" th:if="${!attivita.isEmpty()}">
+			<ul class="list" th:if="${!listaAttivita.isEmpty()}">
 				<li class="list-item" th:each="attivita : ${listaAttivita}">
 					<div class="image-box">
 						<div class="info-image-box" th:if="${attivita.urlImage != null}">
@@ -31,9 +31,9 @@
 							</div>
 						</div>
 					</div>
-					<a class="list-link" th:href="@{'/attivita' + '/' + ${attivita.id}}"
-						th:text="${attivita.nome}"></a>
-					<a class="list-link" th:href="@{'/admin/formUpdateAttivita/' + ${attivita.id}}" style="font-size: 15px; border: unset;">(Aggiorna)</a>
+					<a class="list-link" th:href="@{'/attivita' + '/' + ${attivita.id}}" th:text="${attivita.nome}" style="margin-top: unset; margin: unset;"></a>
+					<a class="list-link" th:href="@{'/admin/formUpdateAttivita/' + ${attivita.id}}"
+						style="font-size: 15px; border: unset; margin-top: 10px; padding: unset;">(Aggiorna)</a>
 				</li>
 			</ul>
 		</div>

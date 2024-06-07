@@ -27,7 +27,7 @@
 					<div th:if="${attivita.esperto}">
 						<h3>Esperto:</h3>
 						<div class="descrizione" th:if="${attivita.esperto != null}">
-							<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"></div>
+							<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}" style="margin-top: 10px; font-size: 20px;"></div>
 							<br>
 							<a th:href="@{'/admin/addEsperto' + '/' + ${attivita.id}}" class="button-link">
 								<button type="button">Modifica Esperto</button>

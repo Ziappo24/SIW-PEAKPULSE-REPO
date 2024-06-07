@@ -26,7 +26,7 @@ import it.uniroma3.siw.service.EspertoService;
 @Controller
 public class EspertoController {
 	
-	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-food-2\\src\\main\\resources\\static\\images";
+	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
 	
 	@Autowired
 	EspertoRepository espertoRepository;

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Mate+SC&display=swap" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Siw-Food - Inserisci Cuoco</title>
+	<link rel="stylesheet" href="/css/login-style.css">
+</head>
+
+<body>
+	<header>
+		<!-- Title and Nav wrapper-->
+		<div class="header-title-nav-wrapper">
+			<div class="header-title">
+				<div class="header-title-text">
+					<a id="site-title" href="/">Siw-Food</a>
+				</div>
+			</div>
+			<div class="header-nav">
+				<div class="header-nav-wrapper">
+					<nav class="header-nav-list">
+						<div class="header-nav-item" th:if="${userDetails}">
+							<div class="inline-flex-container">
+								<div class="username" th:text="${userDetails.username}"></div>
+								<a class="no-underline" href="/logout">Logout</a>
+							</div>
+						</div>
+						<!--                    <div class="header-nav-item" th:unless="${userDetail}">-->
+						<!--                        <a href="/formLogin">Login</a>-->
+						<!--                    </div>-->
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="container" id="container">
+		<div class="form-container inserisci">
+			<h1>Congratulazioni ti sei registrato!</h1>
+			<div>
+				<span th:text="${user.nome}">Nome: </span>
+			</div>
+			<div>
+				<span th:text="${user.cognome}">Cognome: </span>
+			</div>
+			<div>
+				<span th:text="${user.email}">Email: </span>
+			</div>
+<!--mettere anche visualizzazione dell'immagine-->
+		</div>
+	</div>
+	<footer id="footer-sections" class="footer">
+		<div class="section-border">
+			<div class="section-background"> </div>
+		</div>
+		<div class="content-wrapper">
+			<div class="content">
+				<div class="socials">
+					<nav class="footer-nav-list">
+						<a href="https://www.instagram.com/edoardopiazzolla/">
+							<img src="/images/Instagram.png" />
+						</a>
+						<a href="https://www.youtube.com/channel/UC5LdtlfzoK9pftejCPvzWrg">
+							<img src="/images/youtube.png" />
+						</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+
+</html>

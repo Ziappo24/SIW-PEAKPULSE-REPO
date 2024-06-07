@@ -32,10 +32,8 @@
 							</div>
 						</div>
 					</div>
-					<a class="list-link" th:href="@{'/admin/setEspertoToAttivita/' + ${esperto.id} + '/' + ${esperto.id}}"
+					<a class="list-link" th:href="@{'/admin/setEspertoToAttivita/' + ${esperto.id} + '/' + ${attivita.id}}"
 						th:text="${esperto.nome} + ' ' + ${esperto.cognome}">
-						<br>
-						Aggiungi
 					</a>
 				</li>
 			</ul>

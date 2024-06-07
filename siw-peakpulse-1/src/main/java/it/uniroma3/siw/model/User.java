@@ -21,8 +21,15 @@ public class User {
 	private LocalDate nascita;
 	private String email;
 	public String urlImage;
+	public String descrizione;
 	
 	
+	public String getDescrizione() {
+		return descrizione;
+	}
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
 	public String getUrlImage() {
 		return urlImage;
 	}

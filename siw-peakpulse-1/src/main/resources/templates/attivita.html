@@ -25,7 +25,8 @@
 						Non disponibile
 					</div>
 					<div class="descrizione" th:if="${attivita.esperto != null}">
-						<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.espertp.cognome}"></div>
+						<h3>Esperto autore:</h3>
+						<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}" style="font-size: 20px; margin-top: 10px;"></div>
 					</div>
 				</div>
 				<div class="descrizione" th:if="${attivita.esperto == null}" style="margin-top: 15px; font-size: 20px;">

@@ -68,7 +68,7 @@
 
 body{
     background-color: #90273A;
-    background: linear-gradient(#90273A, #90273A);
+    background: linear-gradient(to left,rgb(163, 44, 65), rgb(55, 15, 21));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -209,7 +209,7 @@ input {
 
 .toggle{
     background-color: #90273A;
-    background: linear-gradient(#90273A, #90273A);
+    background: linear-gradient(to right,rgb(163, 44, 65), rgb(72, 19, 29));
     color: white;
     position: relative;
     width: 100%;

@@ -87,7 +87,7 @@ public class AttivitaController {
 		return "/admin/manageAttivita.html";
 	}
 
-	@PostMapping("esperto/searchRicette")
+	@PostMapping("esperto/searchAttivita")
 	public String searchAttivitaEsperto(Model model, @RequestParam String nome) {
 		model.addAttribute("attivita", this.attivitaRepository.findByNome(nome));
 		return "/esperto/manageAttivita.html";

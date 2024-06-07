@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse Lista Esperti</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+	<header>
+		<a href="/" class="logo">Siw-PeakPulse</a>
+		<h1 class="section-title">LISTA ESPERTI</h1>
+		<ul>
+			<li><a href="/" class="active">Home</a></li>
+		</ul>
+	</header>
+	<div class="info-section" id="info">
+		<form th:action="@{/esperto/searchAttivita}" method="post">
+			<div class="search">
+				<span class=" search-icon material-symbols-outlined">search</span>
+				<input class="search-input" type="text" name="nome" th:value="${nome}" placeholder="Ricerca">
+			</div>
+		</form>
+		<div class="list-content">
+			<ul class="list" th:if="${!attivita.isEmpty()}">
+				<li class="list-item" th:each="attivita : ${listaAttivita}">
+					<div class="image-box">
+						<div class="info-image-box" th:if="${attivita.urlImage != null}">
+							<div class="image">
+								<img class="immagine" th:src="@{/images/__${attivita.urlImage}__}" alt="Attivita Image">
+							</div>
+						</div>
+					</div>
+					<a class="list-link" th:href="@{'/attivita' + '/' + ${attivita.id}}"
+						th:text="${attivita.nome}"></a>
+					<a class="list-link" th:href="@{'/esperto/formUpdateAttivita/' + ${attivita.id} + '/' + ${userDetails.username}}" style="font-size: 15px; border: unset;">(Aggiorna)</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+
+</html>

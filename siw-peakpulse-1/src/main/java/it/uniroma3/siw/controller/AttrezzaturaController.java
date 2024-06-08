@@ -102,14 +102,14 @@ private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-p
 	}
 
 	
-	@GetMapping(value="/cuoco/formNewAttrezzatura")
-	public String formNewAttrezzaturaCuoco(Model model) {
+	@GetMapping(value="/esperto/formNewAttrezzatura")
+	public String formNewAttrezzaturaEsperto(Model model) {
 	    model.addAttribute("attrezzatura", new Attrezzatura());
-		return "cuoco/formNewAttrezzatura.html";
+		return "esperto/formNewAttrezzatura.html";
 	}
 	
-	@PostMapping("/cuoco/attrezzatura")
-	public String newIngredienteCuoco(@ModelAttribute("attrezzatura") Attrezzatura attrezzatura, 
+	@PostMapping("/esperto/attrezzatura")
+	public String newIngredienteEsperto(@ModelAttribute("attrezzatura") Attrezzatura attrezzatura, 
 	                             @RequestParam("immagine") MultipartFile file, Model model) {
 	    if (!attrezzaturaRepository.existsByNome(attrezzatura.getNome())) {
 	        if (!file.isEmpty()) {
@@ -127,15 +127,15 @@ private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-p
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	                model.addAttribute("messaggioErrore", "Errore durante il salvataggio dell'immagine");
-	                return "cuoco/formNewAttrezzatura";
+	                return "esperto/formNewAttrezzatura";
 	            }
 	        } else {
 	            model.addAttribute("messaggioErrore", "Il file dell'immagine è vuoto");
-	            return "cuoco/formNewAttrezzatura";
+	            return "esperto/formNewAttrezzatura";
 	        }
 	    } else {
 	        model.addAttribute("messaggioErrore", "Questa attrezzatura esiste già");
-	        return "cuoco/formNewAttrezzatura";
+	        return "esperto/formNewAttrezzatura";
 	    }
 	}
 

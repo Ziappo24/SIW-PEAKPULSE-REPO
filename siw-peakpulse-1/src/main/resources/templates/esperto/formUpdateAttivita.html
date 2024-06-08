@@ -58,7 +58,7 @@
 										</div>
 									</div>
 								</div>
-								<a class="list-link" th:href="@{'/attrezzatura' + '/' + ${attrezzatura.id}}"
+								<a class="list-link-attrezzatura" th:href="@{'/attrezzatura' + '/' + ${attrezzatura.id}}"
 									th:text="${attrezzatura.nome}" style="color: white;"></a>
 							</li>
 						</div>
@@ -69,7 +69,7 @@
 						attività</strong>
 				</div>
 				<a th:href="@{'/esperto/updateAttrezzatura' + '/' + ${attivita.id}}" class="button-link">
-					<button type="button" style="margin-top: 10px;">Aggiungi Attrezzature</button>
+					<button type="button" class="btn btn-custom" style="margin-top: 10px;">Gestisci Attrezzature</button>
 				</a>
 			</div>
 		</div>

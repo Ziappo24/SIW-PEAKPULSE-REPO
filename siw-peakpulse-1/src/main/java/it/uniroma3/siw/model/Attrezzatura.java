@@ -61,19 +61,15 @@ public class Attrezzatura {
 	}
 	
 	@Override
-	public int hashCode() {
-		return Objects.hash(nome);
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Attrezzatura other = (Attrezzatura) obj;
+        return Objects.equals(id, other.id);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Attivita other = (Attivita) obj;
-		return Objects.equals(nome, other.nome);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

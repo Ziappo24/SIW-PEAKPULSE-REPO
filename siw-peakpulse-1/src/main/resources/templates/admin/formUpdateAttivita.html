@@ -27,17 +27,18 @@
 					<div th:if="${attivita.esperto}">
 						<h3>Esperto:</h3>
 						<div class="descrizione" th:if="${attivita.esperto != null}">
-							<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}" style="margin-top: 10px; font-size: 20px;"></div>
+							<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"
+								style="margin-top: 10px; font-size: 20px;"></div>
 							<br>
 							<a th:href="@{'/admin/addEsperto' + '/' + ${attivita.id}}" class="button-link">
-								<button type="button">Modifica Esperto</button>
+								<button type="button" class="btn1 btn-custom1">Modifica Esperto</button>
 							</a>
 						</div>
 					</div>
 					<div th:unless="${attivita.esperto}">
 						<p>Non c'è nessun esperto per quest' attività'.</p>
 						<a th:href="@{'/admin/addEsperto' + '/' + ${attivita.id}}" class="button-link">
-							<button type="button">Aggiungi Esperto</button>
+							<button type="button" class="btn1 btn-custom1">Aggiungi Esperto</button>
 						</a>
 					</div>
 				</div>
@@ -81,7 +82,7 @@
 					attività</strong>
 			</div>
 			<a th:href="@{'/admin/updateAttrezzatura' + '/' + ${attivita.id}}" class="button-link">
-				<button type="button" style="margin-top: 10px;">Aggiungi Attrezzature</button>
+				<button type="button" class="btn btn-custom" style="margin-top: 10px;">Gestisci Attrezzature</button>
 			</a>
 		</div>
 	</div>

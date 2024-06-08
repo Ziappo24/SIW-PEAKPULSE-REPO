@@ -10,13 +10,12 @@
 	<header>
 		<a href="/" class="logo">Siw-PeakPulse</a>
 		<ul>
-<!--			<li>-->
-<!--				<div class="active" th:if="${userDetails}">-->
-<!--					<div th:text="${userDetails.username}"></div>-->
-<!--					<a href="/logout">Logout</a>-->
-<!--				</div>-->
-<!--			</li>-->
-			<li><a href="/" class="active">Home</a></li>
+			<li>
+				<div class="active" th:if="${userDetails}">
+					<div th:text="${userDetails.username}"></div>
+					<a href="/logout">Logout</a>
+				</div>
+			</li>
 			<li><a href="#sec-2">Elenchi</a></li>
 			<li><a href="#sec-3">Chi Siamo</a></li>
 			<li><a href="#sec-4">Contatti</a></li>

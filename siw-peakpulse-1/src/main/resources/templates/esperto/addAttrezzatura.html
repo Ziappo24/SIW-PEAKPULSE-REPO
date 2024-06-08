@@ -14,7 +14,8 @@
 			<li><a href="/" class="active">Home</a></li>
 		</ul>
 	</header>
-	<div class="info-section" id="info">
+	<div class="info-section" id="info"
+		style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 		<form th:action="@{/searchAttrezzature}" method="post">
 			<div class="search">
 				<span class=" search-icon material-symbols-outlined">ricerca</span>
@@ -23,8 +24,8 @@
 			</div>
 		</form>
 		<div class="list-content">
-			<ul class="list" th:if="${!attrezzature.isEmpty()}">
-				<li class="list-item" th:each="attrezzatura : ${attrezzature}">
+			<ul class="list">
+				<li class="list-item" th:each="attrezzatura : ${attivita.attrezzatureUtilizzate}">
 					<div class="image-box">
 						<div class="info-image-box" th:if="${attrezzatura.urlImage != null}">
 							<div class="image">
@@ -34,13 +35,34 @@
 						</div>
 					</div>
 					<a class="list-link"
-						th:href="@{'/esperto/addAttrezzaturaToAttivita/' + ${attrezzatura.id} + '/' + ${attrezzatura.id}}"
-						th:text="${attrezzatura.nome}">
-						<br>
-						Aggiungi
+						th:href="@{'/esperto/removeAttrezzaturaFromAttivita/' + ${attrezzatura.id} + '/' + ${attivita.id}}"
+						th:text="'Rimuovi' + ' ' + ${attrezzatura.nome}">
 					</a>
 				</li>
 			</ul>
+			<div class="list-content"
+				style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+				<strong style="margin-bottom: 15px; font-size: 20px;">Attrezzature che si possono aggiungere:</strong>
+				<ul class="list">
+					<li class="list-item" th:each="attrezzatura : ${attrezzaturaToAdd}">
+						<div class="image-box">
+							<div class="info-image-box" th:if="${attrezzatura.urlImage != null}">
+								<div class="image">
+									<img class="immagine" th:src="@{/images/__${attrezzatura.urlImage}__}"
+										alt="Attrezzatura Image">
+								</div>
+							</div>
+						</div>
+						<a class="list-link"
+							th:href="@{'/esperto/addAttrezzaturaToAttivita/' + ${attrezzatura.id} + '/' + ${attivita.id}}"
+							th:text="'Aggiungi' + ' ' + ${attrezzatura.nome}">
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+				<a th:href="@{'/esperto/formUpdateAttivita/'+ ${attivita.id}}"><button type="button" class="btn1 btn-custom1">Fine</button></a>
+			</div>
 		</div>
 	</div>
 </body>

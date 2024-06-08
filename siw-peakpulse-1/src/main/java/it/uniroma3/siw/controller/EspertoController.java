@@ -19,26 +19,40 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Esperto;
+import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.repository.EspertoRepository;
 import it.uniroma3.siw.service.EspertoService;
 
 @Controller
 public class EspertoController {
 	
-	//private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
-	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
-	
+	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+//	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
 	@Autowired
 	EspertoRepository espertoRepository;
 
 	@Autowired
 	EspertoService espertoService;
 	
+	@Autowired
+	CredentialsRepository credentialsRepository;
+	
 	@GetMapping("/esperto/{id}")
 	public String getEsperto(@PathVariable("id") Long id, Model model) {
 		Esperto esperto = espertoService.findById(id);
 		model.addAttribute("esperto", esperto);
+		return "esperto.html";
+	}
+	
+	@GetMapping("/userEsperto/{username}")
+	public String getEspertoByUsername(@PathVariable("username") String username, Model model) {
+		Credentials tempUser = credentialsRepository.findByUsername(username);
+	    User currentUser = tempUser.getUser();
+	    Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
+		model.addAttribute("esperto", currentEsperto);
 		return "esperto.html";
 	}
 

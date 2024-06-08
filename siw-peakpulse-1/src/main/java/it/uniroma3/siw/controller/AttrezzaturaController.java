@@ -73,7 +73,7 @@ public class AttrezzaturaController {
 	}
 	
 	@PostMapping("/admin/attrezzatura")
-	public String newIngrediente(@ModelAttribute("attrezzatura") Attrezzatura attrezzatura, 
+	public String newAttrezzatura(@ModelAttribute("attrezzatura") Attrezzatura attrezzatura, 
 	                             @RequestParam("immagine") MultipartFile file, Model model) {
 	    if (!attrezzaturaRepository.existsByNome(attrezzatura.getNome())) {
 	        if (!file.isEmpty()) {
@@ -111,7 +111,7 @@ public class AttrezzaturaController {
 	}
 	
 	@PostMapping("/esperto/attrezzatura")
-	public String newIngredienteEsperto(@ModelAttribute("attrezzatura") Attrezzatura attrezzatura, 
+	public String newAttrezzaturaEsperto(@ModelAttribute("attrezzatura") Attrezzatura attrezzatura, 
 	                             @RequestParam("immagine") MultipartFile file, Model model) {
 	    if (!attrezzaturaRepository.existsByNome(attrezzatura.getNome())) {
 	        if (!file.isEmpty()) {
@@ -143,7 +143,7 @@ public class AttrezzaturaController {
 
 	
 	@GetMapping(value = "/admin/deleteAttrezzatura/{attrezzaturaId}")
-	public String deleteIngredienteAdmin(@PathVariable("attrezzaturaId") Long attrezzaturaId, Model model) {
+	public String deleteAttrezzaturaAdmin(@PathVariable("attrezzaturaId") Long attrezzaturaId, Model model) {
 		attrezzaturaService.deleteById(attrezzaturaId);
         return "redirect:/admin/manageAttrezzatura";
 	}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse - New Attrezzatura</title>
+	<link rel="stylesheet" href="/css/login-style.css">
+</head>
+
+<body>
+	<header>
+		<!-- Title and Nav wrapper-->
+		<div class="header-title-nav-wrapper">
+			<div class="header-title">
+				<div class="header-title-text">
+					<a id="site-title" href="/">PeakPulse</a>
+				</div>
+			</div>
+			<div class="header-nav">
+				<div class="header-nav-wrapper">
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="container" id="container">
+		<div class="form-container inserisci">
+			<form th:action="@{/admin/attrezzatura}" method="POST" th:object="${attrezzatura}" enctype="multipart/form-data">
+				<h1>Inserisci nuova Attrezzatura</h1>
+				<span class="span-text">Inserisci di seguito tutte le informazioni richieste</span>
+				<br>
+				<input required type="text" placeholder="Nome" th:field="${attrezzatura.nome}">
+				<br>
+				<input required type="text" placeholder="Descrizione" th:field="${attrezzatura.descrizione}">
+				<br>
+				<input required type="file" placeholder="URL Immagine" name="immagine" >
+				<button>Inserisci</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

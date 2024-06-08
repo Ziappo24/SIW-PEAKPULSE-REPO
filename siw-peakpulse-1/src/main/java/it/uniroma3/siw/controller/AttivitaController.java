@@ -108,8 +108,9 @@ public class AttivitaController {
 
 	@GetMapping(value = "/admin/formNewAttivita")
 	public String formNewAttivita(Model model) {
-		model.addAttribute("attivita", new Attivita());
-		return "/admin/formNewAttivita.html";
+	    Attivita attivita = new Attivita();
+	    model.addAttribute("attivita", attivita);
+	    return "/admin/formNewAttivita.html";
 	}
 
 	@PostMapping("/admin/attivita")
@@ -134,23 +135,23 @@ public class AttivitaController {
 				} catch (IOException e) {
 					e.printStackTrace();
 					model.addAttribute("messaggioErrore", "Errore durante il salvataggio dell'immagine");
-					return "formNewAttivita.html";
+					return "/admin/formNewAttivita.html";
 				}
 			} else {
 				model.addAttribute("messaggioErrore", "Il file dell'immagine è vuoto");
-				return "formNewAttivita.html";
+				return "/admin/formNewAttivita.html";
 			}
 		} else {
-			return "formNewAttivita.html";
+			return "/admin/formNewAttivita.html";
 		}
 	}
 
 	@GetMapping(value = "/esperto/formNewAttivita/{username}")
 	public String formNewAttivitaEsperto(@PathVariable("username") String username, Model model) {
-		Credentials tempUser = credentialsRepository.findByUsername(username);
-		User currentUser = tempUser.getUser();
-		Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
-		Attivita attivita = new Attivita();
+	    Credentials tempUser = credentialsRepository.findByUsername(username);
+	    User currentUser = tempUser.getUser();
+	    Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
+	    Attivita attivita = new Attivita();
 		model.addAttribute("esperto", currentEsperto);
 		model.addAttribute("espertoId", currentEsperto.getId());
 		model.addAttribute("attivita", attivita);
@@ -184,14 +185,14 @@ public class AttivitaController {
 				} catch (IOException e) {
 					e.printStackTrace();
 					model.addAttribute("messaggioErrore", "Errore durante il salvataggio dell'immagine");
-					return "formNewAttivita.html";
+					return "/esperto/formNewAttivita.html";
 				}
 			} else {
 				model.addAttribute("messaggioErrore", "Il file dell'immagine è vuoto");
-				return "formNewAttivita.html";
+				return "/esperto/formNewAttivita.html";
 			}
 		} else {
-			return "formNewAttivita.html";
+			return "/esperto/formNewAttivita.html";
 		}
 	}
 

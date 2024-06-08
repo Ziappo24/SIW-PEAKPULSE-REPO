@@ -2,26 +2,35 @@
 <html>
 
 <head>
-	<title>Peak Pulse New Attività</title>
-	<link rel="stylesheet" href="/css/style.css">
+	<title>Peak Pulse - New Attivita</title>
+	<link rel="stylesheet" href="/css/login-style.css">
 </head>
 
 <body>
 	<header>
-		<a href="/" class="logo">Siw-PeakPulse</a>
-		<h1 class="section-title">CREA ATTIVITÀ</h1>
-		<ul>
-			<li><a href="/" class="active">Home</a></li>
-		</ul>
+		<!-- Title and Nav wrapper-->
+		<div class="header-title-nav-wrapper">
+			<div class="header-title">
+				<div class="header-title-text">
+					<a id="site-title" href="/">PeakPulse</a>
+				</div>
+			</div>
+			<div class="header-nav">
+				<div class="header-nav-wrapper">
+				</div>
+			</div>
+		</div>
 	</header>
-	
 	<div class="container" id="container">
 		<div class="form-container inserisci">
 			<form th:action="@{/esperto/attivita}" method="POST" th:object="${attivita}" enctype="multipart/form-data">
-				<h1>Inserisci Attivita</h1>
+				<h1>Inserisci nuova Attivita</h1>
 				<span class="span-text">Inserisci di seguito tutte le informazioni richieste</span>
+				<br>
 				<input required type="text" placeholder="Nome" th:field="${attivita.nome}">
+				<br>
 				<input required type="text" placeholder="Descrizione" th:field="${attivita.descrizione}">
+				<br>
 				<input required type="file" placeholder="URL Immagine" name="immagine" >
 				<input type="hidden" name="username" th:value="${userDetails.username}"/>
 				<button>Inserisci</button>
@@ -29,4 +38,5 @@
 		</div>
 	</div>
 </body>
+
 </html>

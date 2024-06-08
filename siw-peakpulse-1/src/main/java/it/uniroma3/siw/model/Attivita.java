@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,14 +37,19 @@ public class Attivita {
 	public Esperto esperto;
 	
 
-	 @ManyToMany
-	 private List<Attrezzatura> attrezzatureUtilizzate;
+	@ManyToMany
+	private List<Attrezzatura> attrezzatureUtilizzate;
 	
 	
-	 @OneToMany(mappedBy = "attivita")
-	 private List<Recensione> recensioni;
+	@OneToMany(mappedBy = "attivita")
+	private List<Recensione> recensioni;
 
-
+	 
+	public Attivita() {
+	    // inizializzazione della lista nel costruttore
+	    this.attrezzatureUtilizzate = new ArrayList<>();
+	 }
+	 
 	public long getId() {
 		return id;
 	}

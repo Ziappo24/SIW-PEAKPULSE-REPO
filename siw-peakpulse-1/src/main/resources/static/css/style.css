@@ -60,6 +60,17 @@ header ul li a.active {
 	color: #90273A;
 }
 
+header ul li .user-info {
+	display: flex;
+	align-items: center;
+}
+
+header ul li .user-info span {
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+
 section {
 	position: relative;
 	width: 100%;

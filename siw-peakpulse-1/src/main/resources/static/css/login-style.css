@@ -146,7 +146,8 @@ body{
     font-size: 14px;
     border-radius: 8px;
     width: 100%;
-    outline: none;
+ 	text-decoration: none;
+	outline: none;
 }
 input {
 	width: 100%;

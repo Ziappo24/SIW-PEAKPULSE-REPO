@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse - New Recensione</title>
+	<link rel="stylesheet" href="/css/login-style.css">
+</head>
+
+<body>
+	<header>
+		<!-- Title and Nav wrapper-->
+		<div class="header-title-nav-wrapper">
+			<div class="header-title">
+				<div class="header-title-text">
+					<a id="site-title" href="/">PeakPulse</a>
+				</div>
+			</div>
+			<div class="header-nav">
+				<div class="header-nav-wrapper">
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="container" id="container">
+		<div class="form-container inserisci">
+			<form th:action="@{/esperto/recensione}" method="POST" th:object="${recensione}">
+				<h1>Inserisci nuova Recensione</h1>
+				<span class="span-text">Inserisci di seguito tutte le informazioni richieste</span>
+				<br>
+				<input required type="number" placeholder="Numero Di Stelle" th:field="${recensione.numeroStelle}">
+				<br>
+				<input required type="text" placeholder="Descrizione" th:field="${recensione.descrizione}">
+				<input type="hidden" name="username" th:value="${userDetails.username}"/>
+				<input type="hidden" name="attivita" th:value="${attivita.id}"/>
+				<button>Inserisci</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

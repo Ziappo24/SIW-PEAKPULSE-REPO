@@ -4,6 +4,7 @@
 <head>
 	<title>Peak Pulse Info Attività</title>
 	<link rel="stylesheet" href="/css/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -72,8 +73,8 @@
 		</div>
 	</div>
 	<div class="info-section" id="recensioni">
+		<strong style="font-size: 30px;">Recensioni</strong>
 		<div class="list-content">
-			<strong style="font-size: 30px;">Recensioni</strong>
 			<div class="recensioni-container">
 				<ul class="list" th:if="${!attivita.recensioni.isEmpty()}">
 					<li class="list-item" th:each="recensione : ${attivita.recensioni}">
@@ -83,21 +84,27 @@
 									<div class="immagine-profilo">
 										<img th:src="@{/images/__${recensione.autore.urlImage}__}">
 										<div class="info-autore">
-											<strong th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"></strong>
+											<strong
+												th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"></strong>
 										</div>
 									</div>
 								</div>
 								<div class="votazione">
-<!--									va inserita la logica di visualizzazione delle stelle in base al numero-->
+									<span class="stelle" data-rating="${recensione.numeroStelle}"></span>
 								</div>
 							</div>
-<!--							Sezione Commenti da fare -->
-							
+							<div class="sezione-commento">
+								<p th:text="${recensione.descrizione}">
+								</p>
+							</div>
 						</div>
 					</li>
 				</ul>
 			</div>
 		</div>
+		<a th:href="@{'/esperto/formNewRecensione' + '/' + ${attivita.id} + '/' + ${userDetails.username}}" class="button-link">
+			<button type="button" class="btn btn-custom" style="margin-top: 10px;">Aggiungi una recensione!</button>
+		</a>
 	</div>
 </body>
 

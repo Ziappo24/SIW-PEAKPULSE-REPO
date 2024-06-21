@@ -721,3 +721,85 @@ section img#montagne_front {
 	align-items: center;
 	margin-bottom: 20px;
 }
+
+.sezione-commento p {
+	font-size: 0.9rem;
+	color: #90273A;
+	text-align: justify;
+}
+
+.recensioni-box:hover {
+	transform: perspective(-10px);
+	transition: all ease 0.3s;
+}
+
+@media(max-width:1060px) {
+	.recensioni-box {
+		width: 45%;
+		padding: 10px;
+	}
+}
+
+@media(max-width:790px) {
+	.recensioni-box {
+		width: 100%;
+	}
+}
+
+@media(max-width:340px) {
+	.box-top {
+		flex-wrap: wrap;
+		margin-bottom: 10px;
+	}
+	.votazione {
+		margin-top: 10px;
+	}
+}
+
+/* Contenitore delle stelle */
+.stelle {
+    display: inline-block;
+    font-size: 0;
+    position: relative;
+}
+
+/* Stile per le stelle vuote */
+.stelle::before {
+    content: '☆☆☆☆☆';
+    font-size: 24px; /* Puoi regolare la dimensione delle stelle */
+    color: #ccc; /* Colore delle stelle vuote */
+}
+
+/* Stile per le stelle piene */
+.stelle::after {
+    content: '★★★★★';
+    font-size: 24px; /* Deve corrispondere alla dimensione delle stelle vuote */
+    color: #f5a623; /* Colore delle stelle piene */
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    width: 0;
+}
+
+.stelle[data-rating="1"]::after {
+    width: 20%;
+}
+
+.stelle[data-rating="2"]::after {
+    width: 40%;
+}
+
+.stelle[data-rating="3"]::after {
+    width: 60%;
+}
+
+.stelle[data-rating="4"]::after {
+    width: 80%;
+}
+
+.stelle[data-rating="5"]::after {
+    width: 100%;
+}
+
+

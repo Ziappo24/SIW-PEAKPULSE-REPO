@@ -26,7 +26,8 @@
 					</div>
 					<div class="descrizione" th:if="${attivita.esperto != null}">
 						<h3>Esperto autore:</h3>
-						<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}" style="font-size: 20px; margin-top: 10px;"></div>
+						<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"
+							style="font-size: 20px; margin-top: 10px;"></div>
 					</div>
 				</div>
 				<div class="descrizione" th:if="${attivita.esperto == null}" style="margin-top: 15px; font-size: 20px;">
@@ -70,13 +71,32 @@
 			</div>
 		</div>
 	</div>
-	<div class="info-section" id="attrezzature-utilizzate">
+	<div class="info-section" id="recensioni">
 		<div class="list-content">
-			<ul class="list" th:if="${!attivita.recensioni.isEmpty()}">
-				<li class="list-item" th:each="recensione : ${attivita.recensioni}">
-					<!--					implementare la visualizzazione delle recensioni-->
-				</li>
-			</ul>
+			<strong style="font-size: 30px;">Recensioni</strong>
+			<div class="recensioni-container">
+				<ul class="list" th:if="${!attivita.recensioni.isEmpty()}">
+					<li class="list-item" th:each="recensione : ${attivita.recensioni}">
+						<div class="recensione-box">
+							<div class="box-top">
+								<div class="info-profilo">
+									<div class="immagine-profilo">
+										<img th:src="@{/images/__${recensione.autore.urlImage}__}">
+										<div class="info-autore">
+											<strong th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"></strong>
+										</div>
+									</div>
+								</div>
+								<div class="votazione">
+<!--									va inserita la logica di visualizzazione delle stelle in base al numero-->
+								</div>
+							</div>
+<!--							Sezione Commenti da fare -->
+							
+						</div>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </body>

@@ -120,7 +120,7 @@ public class RecensioneController {
 	    recensioni.add(recensione);
 	    attivita.setRecensioni(recensioni);
 	    
-	    return "attivita.html";
+	    return "/esperto/attivita.html";
 	}
 
 }

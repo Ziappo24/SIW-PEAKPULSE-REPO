@@ -27,6 +27,7 @@
 					<div th:if="${attivita.esperto}">
 						<h3>Esperto:</h3>
 						<div class="descrizione" th:if="${attivita.esperto != null}">
+							<h3>Esperto autore:</h3>
 							<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"
 								style="margin-top: 10px; font-size: 20px;"></div>
 							<br>
@@ -41,6 +42,7 @@
 							<button type="button" class="btn1 btn-custom1">Aggiungi Esperto</button>
 						</a>
 					</div>
+					<button type="button" class="btn btn-custom" style="margin-top: 10px;" th:href="@{'/esperto/deleteAttivita/' + ${attivita.id}}">Elimina Attività</button>
 				</div>
 				<div class="descrizione" th:if="${attivita.esperto == null}" style="font-size: 20px;">
 					L'esperto autore di questa attività non è disponibile!

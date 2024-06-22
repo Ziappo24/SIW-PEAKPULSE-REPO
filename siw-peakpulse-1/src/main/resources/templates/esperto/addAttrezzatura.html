@@ -61,7 +61,7 @@
 				</ul>
 			</div>
 			<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-				<a th:href="@{'/esperto/formUpdateAttivita/'+ ${attivita.id}}"><button type="button" class="btn1 btn-custom1">Fine</button></a>
+				<a th:href="@{'/esperto/formUpdateAttivita/'+ ${attivita.id} + '/' + ${userDetails.username}}"><button type="button" class="btn1 btn-custom1">Fine</button></a>
 			</div>
 		</div>
 	</div>

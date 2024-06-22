@@ -24,9 +24,12 @@
 					<div th:if="${attivita.descrizione == null}">
 						Non disponibile
 					</div>
+					<h3>Esperto autore:</h3>
 					<div class="descrizione" th:if="${attivita.esperto != null}">
-						<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"></div>
+						<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"
+							style="margin-top: 10px; font-size: 20px;"></div>
 					</div>
+					<button type="button" class="btn btn-custom" style="margin-top: 10px;" th:href="@{'/esperto/deleteAttivita/' + ${attivita.id}}">Elimina Attività</button>
 				</div>
 				<div class="descrizione" th:if="${attivita.esperto == null}" style="margin-top: 15px; font-size: 20px;">
 					L'esperto autore di questa attività non è disponibile!
@@ -43,45 +46,68 @@
 	</div>
 	</div>
 	<div class="info-section-attrezzature" id="attrezzature-utilizzate" style="background-color: unset;">
-			<div class="list-content-attrezzature" style="display: flex; flex-direction: column; align-items: center;">
-				<div class="titolo-lista" th:if="${!attivita.attrezzatureUtilizzate.isEmpty()}">
-					<strong style=" font-size: 30px; color: white; ">Attrezzature Necessarie:</strong>
-					<ul class=" list-attrezzature">
-						<div class=" list-div-attrezzature" th:each="attrezzatura : ${attivita.attrezzatureUtilizzate}">
-							<li class="list-item-attrezzature">
-								<div class="image-box">
-									<div class="info-image-box" th:if="${attrezzatura.urlImage != null}"
-										style="display: flex; flex-direction: column; align-items: center;">
-										<div class="image">
-											<img class="immagine-attrezzatura"
-												th:src="@{/images/__${attrezzatura.urlImage}__}" alt="Attrezzatura Image">
-										</div>
+		<div class="list-content-attrezzature" style="display: flex; flex-direction: column; align-items: center;">
+			<div class="titolo-lista" th:if="${!attivita.attrezzatureUtilizzate.isEmpty()}">
+				<strong style=" font-size: 30px; color: white; ">Attrezzature Necessarie:</strong>
+				<ul class=" list-attrezzature">
+					<div class=" list-div-attrezzature" th:each="attrezzatura : ${attivita.attrezzatureUtilizzate}">
+						<li class="list-item-attrezzature">
+							<div class="image-box">
+								<div class="info-image-box" th:if="${attrezzatura.urlImage != null}"
+									style="display: flex; flex-direction: column; align-items: center;">
+									<div class="image">
+										<img class="immagine-attrezzatura"
+											th:src="@{/images/__${attrezzatura.urlImage}__}" alt="Attrezzatura Image">
 									</div>
 								</div>
-								<a class="list-link-attrezzatura" th:href="@{'/attrezzatura' + '/' + ${attrezzatura.id}}"
-									th:text="${attrezzatura.nome}" style="color: white;"></a>
-							</li>
-						</div>
-					</ul>
-				</div>
-				<div class="lista-attrezzature-empty" th:if="${attivita.attrezzatureUtilizzate.isEmpty()}">
-					<strong style="font-size: 30px; color: white; ">Non ci sono attrezzature per questa
-						attività</strong>
-				</div>
-				<a th:href="@{'/esperto/updateAttrezzatura' + '/' + ${attivita.id}}" class="button-link">
-					<button type="button" class="btn btn-custom" style="margin-top: 10px;">Gestisci Attrezzature</button>
-				</a>
+							</div>
+							<a class="list-link-attrezzatura" th:href="@{'/attrezzatura' + '/' + ${attrezzatura.id}}"
+								th:text="${attrezzatura.nome}" style="color: white;"></a>
+						</li>
+					</div>
+				</ul>
 			</div>
+			<div class="lista-attrezzature-empty" th:if="${attivita.attrezzatureUtilizzate.isEmpty()}">
+				<strong style="font-size: 30px; color: white; ">Non ci sono attrezzature per questa
+					attività</strong>
+			</div>
+			<a th:href="@{'/esperto/updateAttrezzatura' + '/' + ${attivita.id}}" class="button-link">
+				<button type="button" class="btn btn-custom" style="margin-top: 10px;">Gestisci Attrezzature</button>
+			</a>
 		</div>
-		<div class="info-section-recensioni">
-			<div class="list-content-recensioni">
-				<ul class="list" th:if="${!attivita.recensioni.isEmpty()}">
-					<li class="list-item" th:each="recensione : ${attivita.recensioni}">
-						<!-- implementare la visualizzazione delle recensioni -->
+	</div>
+	<div class="info-section" id="recensioni" style="margin-top: unset; height: auto;">
+		<strong style="font-size: 30px; margin-bottom: 20px;">Recensioni</strong>
+		<div class="list-content">
+			<div class="recensioni-container">
+				<ul class="list" th:if="${attivita.recensioni!=null}" style="justify-content: center;">
+					<li class="list-item" th:each="recensione : ${attivita.recensioni}"
+						style="width: 600px; height: 150px; border: none;">
+						<div class="recensione-box">
+							<div class="box-top">
+								<div class="info-profilo">
+									<div class="immagine-profilo">
+										<img th:src="@{/images/__${recensione.autore.urlImage}__}">
+									</div>
+									<div class="info-autore">
+										<strong th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"
+											style="color: #90273A; font-size: 15px;"></strong>
+									</div>
+								</div>
+								<div class="votazione">
+									<span class="stelle" th:attr="data-rating=${recensione.numeroStelle}"></span>
+								</div>
+							</div>
+							<div class="sezione-commento">
+								<p th:text="${recensione.descrizione}">
+								</p>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</div>
 		</div>
+	</div>
 </body>
 
 </html>

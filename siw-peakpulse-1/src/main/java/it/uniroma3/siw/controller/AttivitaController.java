@@ -70,6 +70,13 @@ public class AttivitaController {
 		model.addAttribute("attivita", attivita);
 		return "attivita.html";
 	}
+	
+	@GetMapping(value="/esperto/attivita/{id}")
+	public String getAttivitaEsperto(@PathVariable("id") Long id, Model model) {
+		Attivita attivita = attivitaService.findById(id);
+		model.addAttribute("attivita", attivita);
+		return "/esperto/attivita.html";
+	}
 
 	@GetMapping("/listaAttivita")
 	public String ShowAttivita(Model model) {
@@ -274,7 +281,7 @@ public class AttivitaController {
 		model.addAttribute("attrezzaturaToAdd", attrezzaturaToAdd);
 		model.addAttribute("attivita", this.attivitaRepository.findById(id).get());
 
-		return "admin/addAttrezzatura.html";
+		return "esperto/addAttrezzatura.html";
 	}
 
 	@GetMapping(value = "/admin/addAttrezzaturaToAttivita/{attrezzaturaId}/{attivitaId}")

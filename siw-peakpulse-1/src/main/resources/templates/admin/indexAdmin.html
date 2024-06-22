@@ -12,7 +12,7 @@
 		<ul>
 			<li>
 				<div class="user-info" th:if="${userDetails}">
-					<span th:text="${userDetails.username}"></span>
+					<a href="/" class="active" th:text="${userDetails.username}" style="color: #90273A; margin-right: 20px;"></a>
 					<a href="/logout">Logout</a>
 				</div>
 			</li>

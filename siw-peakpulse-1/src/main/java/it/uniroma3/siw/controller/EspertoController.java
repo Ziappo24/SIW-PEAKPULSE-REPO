@@ -63,7 +63,7 @@ public class EspertoController {
 		return "esperti.html";
 	}
 	
-	@GetMapping(value = "/admin/formNewEsperto")
+	@GetMapping("/admin/formNewEsperto")
 	public String formNewEsperto(Model model) {
 		model.addAttribute("esperto", new Esperto());
 		return "admin/formNewEsperto.html";

@@ -47,8 +47,8 @@
 	<div class="info-section-attrezzature" id="attrezzature-utilizzate" style="background-color: unset;">
 		<div class="list-content-attrezzature" style="display: flex; flex-direction: column; align-items: center;">
 			<div class="titolo-lista" th:if="${esperto.attivita!=null}">
-				<strong style=" font-size: 30px; color: white; ">Attività proposte da:
-					<div class="nome-esperto" th:text="${esperto.nome}"></div>
+				<strong style=" font-size: 30px; color: white; display: flex; flex-direction: row;">Attività proposte da
+					<div class="nome-esperto" th:text="${':' + ' ' + esperto.nome}"></div>
 				</strong>
 				<ul class=" list-attrezzature">
 					<div class=" list-div-attrezzature" th:each="attivita : ${esperto.attivita}">

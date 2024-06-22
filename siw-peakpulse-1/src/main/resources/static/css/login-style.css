@@ -369,3 +369,19 @@ input#voto-5:checked ~ label {
 	color: #fe7;
 	text-shadow: 0 0 20px #952;
 }
+
+.form-container form {
+	justify-content: start;
+}
+
+.form-container h1 {
+	padding: 40px;
+	font-size: 30px;
+}
+
+.form-container span {
+	font-size: 18px;
+}
+.img-input {
+	margin-bottom: 40px;
+}

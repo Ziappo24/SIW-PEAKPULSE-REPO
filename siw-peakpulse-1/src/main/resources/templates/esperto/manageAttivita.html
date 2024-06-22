@@ -34,7 +34,7 @@
 							</div>
 						</div>
 					</div>
-					<a class="list-link" th:href="@{'/attivita' + '/' + ${attivita.id}}" th:text="${attivita.nome}"
+					<a class="list-link" th:href="@{'/esperto/attivita' + '/' + ${attivita.id}}" th:text="${attivita.nome}"
 						style="margin-top: unset; margin: unset;"></a>
 					<a class="list-link"
 						th:href="@{'/esperto/formUpdateAttivita/' + ${attivita.id} + '/' + ${userDetails.username}}"

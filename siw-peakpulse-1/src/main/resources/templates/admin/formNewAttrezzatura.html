@@ -23,15 +23,16 @@
 	</header>
 	<div class="container" id="container">
 		<div class="form-container inserisci">
-			<form th:action="@{/admin/attrezzatura}" method="POST" th:object="${attrezzatura}" enctype="multipart/form-data">
+			<form th:action="@{/admin/attrezzatura}" method="POST" th:object="${attrezzatura}"
+				enctype="multipart/form-data">
 				<h1>Inserisci nuova Attrezzatura</h1>
 				<span class="span-text">Inserisci di seguito tutte le informazioni richieste</span>
 				<br>
 				<input required type="text" placeholder="Nome" th:field="${attrezzatura.nome}">
 				<br>
-				<input required type="text" placeholder="Descrizione" th:field="${attrezzatura.descrizione}">
-				<br>
-				<input required type="file" placeholder="URL Immagine" name="immagine" >
+				<textarea style="margin-bottom: 20px; width: 100%; height: 100px;" required placeholder="Descrizione"
+					th:field="${attrezzatura.descrizione}"></textarea>
+				<input class="img-input" required type="file" placeholder="URL Immagine" name="immagine">
 				<button>Inserisci</button>
 			</form>
 		</div>

@@ -29,9 +29,9 @@
 				<br>
 				<input required type="text" placeholder="Nome" th:field="${attivita.nome}">
 				<br>
-				<input required type="text" placeholder="Descrizione" th:field="${attivita.descrizione}">
-				<br>
-				<input required type="file" placeholder="URL Immagine" name="immagine" >
+				<textarea style="margin-bottom: 20px; width: 100%; height: 50px;" required placeholder="Descrizione"
+					th:field="${attivita.descrizione}"></textarea>
+				<input class="img-input" required type="file" placeholder="URL Immagine" name="immagine">
 				<button>Inserisci</button>
 			</form>
 		</div>

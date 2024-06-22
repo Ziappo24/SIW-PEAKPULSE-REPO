@@ -33,9 +33,9 @@
 				<br>
 				<input required type="date" placeholder="Data di nascita" th:field="${esperto.nascita}">
 				<br>
-				<input required type="text" placeholder="Descrizione" th:field="${esperto.descrizione}">
-				<br>
-				<input required type="file" placeholder="URL Immagine" name="immagine" >
+				<textarea style="margin-bottom: 20px; width: 100%; height: 50px;" required
+					placeholder="Descrizione" th:field="${esperto.descrizione}"></textarea>
+				<input class="img-input" required type="file" placeholder="URL Immagine" name="immagine">
 				<button>Inserisci</button>
 			</form>
 		</div>

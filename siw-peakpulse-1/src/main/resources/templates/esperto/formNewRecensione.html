@@ -4,6 +4,7 @@
 <head>
 	<title>Peak Pulse - New Recensione</title>
 	<link rel="stylesheet" href="/css/login-style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
 <body>
@@ -23,19 +24,45 @@
 	</header>
 	<div class="container" id="container">
 		<div class="form-container inserisci">
-			<form th:action="@{/esperto/recensione}" method="POST" th:object="${recensione}">
-				<h1>Inserisci nuova Recensione</h1>
-				<span class="span-text">Inserisci di seguito tutte le informazioni richieste</span>
-				<br>
-				<input required type="number" placeholder="Numero Di Stelle" th:field="${recensione.numeroStelle}">
-				<br>
-				<input required type="text" placeholder="Descrizione" th:field="${recensione.descrizione}">
-				<input type="hidden" name="username" th:value="${userDetails.username}"/>
-				<input type="hidden" name="attivita" th:value="${attivita.id}"/>
+			<form th:action="@{/esperto/recensione}" method="POST" th:object="${recensione}"
+				style="justify-content: start;">
+				<h1 style="padding: 40px; font-size: 30px;">Inserisci nuova Recensione</h1>
+				<span class="span-text" style="font-size: 18px;">Inserisci di seguito tutte le informazioni
+					richieste</span>
+				<!--			    <input style="margin-bottom: 40px;" required type="number" placeholder="Numero Di Stelle" th:field="${recensione.numeroStelle}">-->
+				<div class="container-stelle">
+					<div class="widget-stelle">
+						<input type="radio" name="voto" id="voto-5" value="5" onclick="updateRating(this.id)">
+						<label for="voto-5" class="fas fa-star"></label>
+						<input type="radio" name="voto" id="voto-4" value="4" onclick="updateRating(this.id)">
+						<label for="voto-4" class="fas fa-star"></label>
+						<input type="radio" name="voto" id="voto-3" value="3" onclick="updateRating(this.id)">
+						<label for="voto-3" class="fas fa-star"></label>
+						<input type="radio" name="voto" id="voto-2" value="2" onclick="updateRating(this.id)">
+						<label for="voto-2" class="fas fa-star"></label>
+						<input type="radio" name="voto" id="voto-1" value="1" onclick="updateRating(this.id)">
+						<label for="voto-1" class="fas fa-star"></label>
+					</div>
+				</div>
+				<p style="padding: none; margin-top: none;">Voto selezionato: <span id="rating-value">Nessun voto</span>
+				</p>
+				<p style="padding: none; margin: none;">Valore numerico: <span id="numeric-rating">0</span></p>
+				<textarea style="margin-bottom: 20px; width: 100%; height: 50px;" required
+					placeholder="Di cosa ne pensi..." th:field="${recensione.descrizione}"></textarea>
+				<input type="hidden" name="username" th:value="${userDetails.username}" />
+				<input type="hidden" name="attivita" th:value="${attivita.id}" />
 				<button>Inserisci</button>
 			</form>
 		</div>
 	</div>
 </body>
+<script>
+	function updateRating(id) {
+		// Otteniamo il valore numerico dal suffisso dell'id
+		let rating = parseInt(id.split('-')[1]);
+		document.getElementById('rating-value').innerText = rating;
+		document.getElementById('numeric-rating').innerText = rating;
+	}
+</script>
 
 </html>

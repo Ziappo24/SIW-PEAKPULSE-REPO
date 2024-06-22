@@ -673,13 +673,14 @@ section img#montagne_front {
 	width: 100%;
 }
 
-.recensioni-box {
-	width: 500px;
+.recensione-box {
+	width: 100%;
 	box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
 	background-color: #ffffff;
 	padding: 20px;
 	margin: 15px;
 	cursor: pointer;
+	transition: all ease 0.3s;
 }
 
 .immagine-profilo {
@@ -728,20 +729,20 @@ section img#montagne_front {
 	text-align: justify;
 }
 
-.recensioni-box:hover {
-	transform: perspective(-10px);
+.recensione-box:hover {
+	transform: translateY(-10px);
 	transition: all ease 0.3s;
 }
 
 @media(max-width:1060px) {
-	.recensioni-box {
+	.recensione-box {
 		width: 45%;
 		padding: 10px;
 	}
 }
 
 @media(max-width:790px) {
-	.recensioni-box {
+	.recensione-box {
 		width: 100%;
 	}
 }
@@ -774,7 +775,7 @@ section img#montagne_front {
 .stelle::after {
     content: '★★★★★';
     font-size: 24px; /* Deve corrispondere alla dimensione delle stelle vuote */
-    color: #f5a623; /* Colore delle stelle piene */
+    color: #fd4; /* Colore delle stelle piene */
     position: absolute;
     left: 0;
     top: 0;

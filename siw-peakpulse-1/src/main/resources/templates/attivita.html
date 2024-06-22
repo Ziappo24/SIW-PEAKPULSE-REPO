@@ -44,7 +44,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="info-section-attrezzature" id="attrezzature-utilizzate" style="background-color: unset;">
+	<div class="info-section-attrezzature" id="attrezzature-utilizzate" style="background-color: unset; height: 100%;">
 		<div class="list-content-attrezzature" style="display: flex; flex-direction: column; align-items: center;">
 			<div class="titolo-lista" th:if="${!attivita.attrezzatureUtilizzate.isEmpty()}">
 				<strong style=" font-size: 30px; color: white; ">Attrezzature Necessarie:</strong>
@@ -77,16 +77,16 @@
 		<div class="list-content">
 			<div class="recensioni-container">
 				<ul class="list" th:if="${!attivita.recensioni.isEmpty()}">
-					<li class="list-item" th:each="recensione : ${attivita.recensioni}">
+					<li class="list-item" th:each="recensione : ${attivita.recensioni}" style="width: 600px; height: 150px; border: none;">
 						<div class="recensione-box">
 							<div class="box-top">
 								<div class="info-profilo">
 									<div class="immagine-profilo">
 										<img th:src="@{/images/__${recensione.autore.urlImage}__}">
-										<div class="info-autore">
-											<strong
-												th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"></strong>
-										</div>
+									</div>
+									<div class="info-autore">
+										<strong th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"
+											style="color: #90273A; font-size: 15px;"></strong>
 									</div>
 								</div>
 								<div class="votazione">
@@ -102,9 +102,13 @@
 				</ul>
 			</div>
 		</div>
-		<a th:href="@{'/esperto/formNewRecensione' + '/' + ${attivita.id} + '/' + ${userDetails.username}}" class="button-link">
+		<a th:href="@{'/esperto/formNewRecensione' + '/' + ${attivita.id} + '/' + ${userDetails.username}}"
+			class="button-link">
 			<button type="button" class="btn btn-custom" style="margin-top: 10px;">Aggiungi una recensione!</button>
 		</a>
+		<div if="{messaggioErrore}">
+			<strong th:text="${messaggioErrore}"></strong>
+		</div>
 	</div>
 </body>
 

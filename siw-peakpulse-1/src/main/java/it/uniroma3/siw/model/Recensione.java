@@ -20,6 +20,8 @@ public class Recensione {
 	
 	private Integer numeroStelle;
 	
+
+
 	@ManyToOne
 	private Esperto autore;
 	
@@ -43,16 +45,13 @@ public class Recensione {
 		this.descrizione = descrizione;
 	}
 	
-	public int getNumeroStelle() {
-        return numeroStelle;
-    }
+	public Integer getNumeroStelle() {
+		return numeroStelle;
+	}
 
-    public void setNumeroStelle(int numeroStelle) {
-        if (numeroStelle < 0 || numeroStelle > 5) {
-            throw new IllegalArgumentException("Il numero di stelle deve essere compreso tra 0 e 5.");
-        }
-        this.numeroStelle = numeroStelle;
-    }
+	public void setNumeroStelle(Integer numeroStelle) {
+		this.numeroStelle = numeroStelle;
+	}
     
 	public Esperto getAutore() {
 		return autore;

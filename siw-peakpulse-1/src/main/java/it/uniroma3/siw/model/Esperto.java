@@ -28,14 +28,14 @@ public class Esperto {
 	
 	public String urlImage;
 	
-	
-	@Transient
-	private MultipartFile immagine;
-	
 	public LocalDate nascita;
 	
 	@Column(length = 5000)
 	public String descrizione;
+	
+	
+	@Transient
+	private MultipartFile immagine;
 	
 
 	@OneToMany(mappedBy = "esperto", fetch = FetchType.EAGER)

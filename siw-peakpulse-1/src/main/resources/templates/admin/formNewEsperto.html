@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse - New Esperto</title>
+	<link rel="stylesheet" href="/css/login-style.css">
+</head>
+
+<body>
+	<header>
+		<!-- Title and Nav wrapper-->
+		<div class="header-title-nav-wrapper">
+			<div class="header-title">
+				<div class="header-title-text">
+					<a id="site-title" href="/">PeakPulse</a>
+				</div>
+			</div>
+			<div class="header-nav">
+				<div class="header-nav-wrapper">
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="container" id="container">
+		<div class="form-container inserisci">
+			<form th:action="@{/admin/esperti}" method="POST" th:object="${esperto}" enctype="multipart/form-data">
+				<h1>Inserisci un nuovo Esperto</h1>
+				<span class="span-text">Inserisci di seguito tutte le informazioni richieste</span>
+				<br>
+				<input required type="text" placeholder="Nome" th:field="${esperto.nome}">
+				<br>
+				<input required type="text" placeholder="Cognome" th:field="${esperto.cognome}">
+				<br>
+				<input required type="date" placeholder="Data di nascita" th:field="${esperto.nascita}">
+				<br>
+				<input required type="text" placeholder="Descrizione" th:field="${esperto.descrizione}">
+				<br>
+				<input required type="file" placeholder="URL Immagine" name="immagine" >
+				<button>Inserisci</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

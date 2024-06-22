@@ -46,7 +46,7 @@
 	</div>
 	<div class="info-section-attrezzature" id="attrezzature-utilizzate" style="background-color: unset;">
 		<div class="list-content-attrezzature" style="display: flex; flex-direction: column; align-items: center;">
-			<div class="titolo-lista" th:if="${!esperto.attivita.isEmpty()}">
+			<div class="titolo-lista" th:if="${esperto.attivita!=null}">
 				<strong style=" font-size: 30px; color: white; ">Attività proposte da:
 					<div class="nome-esperto" th:text="${esperto.nome}"></div>
 				</strong>
@@ -68,7 +68,7 @@
 					</div>
 				</ul>
 			</div>
-			<div class="lista-attivita-empty" th:if="${esperto.attivita.isEmpty()}">
+			<div class="lista-attivita-empty" th:if="${esperto.attivita==null}">
 				<strong style="font-size: 30px; color: white; display: flex; flex-direction: row; ">
 					<div class="nome-esperto" th:text="${esperto.nome}" style="margin-right: 10px;"></div>
 					<p>non ha proposto ancora nessuna attività...</p>

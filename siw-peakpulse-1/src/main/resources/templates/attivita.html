@@ -76,7 +76,7 @@
 		<strong style="font-size: 30px;">Recensioni</strong>
 		<div class="list-content">
 			<div class="recensioni-container">
-				<ul class="list" th:if="${!attivita.recensioni.isEmpty()}">
+				<ul class="list" th:if="${attivita.recensioni!=null}">
 					<li class="list-item" th:each="recensione : ${attivita.recensioni}" style="width: 600px; height: 150px; border: none;">
 						<div class="recensione-box">
 							<div class="box-top">

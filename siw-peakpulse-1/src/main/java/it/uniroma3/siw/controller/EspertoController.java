@@ -29,9 +29,9 @@ import it.uniroma3.siw.service.EspertoService;
 @Controller
 public class EspertoController {
 	
-//	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
 //	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
-	private static String UPLOAD_DIR = "C:\\Users\\UTENTE\\Documents\\workspace-spring-tool-suite-4-4.22.0.RELEASE\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+//	private static String UPLOAD_DIR = "C:\\Users\\UTENTE\\Documents\\workspace-spring-tool-suite-4-4.22.0.RELEASE\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
 	@Autowired
 	EspertoRepository espertoRepository;
 
@@ -87,8 +87,8 @@ public class EspertoController {
 		return "/admin/manageEsperti.html";
 	}
 
-	@PostMapping("/admin/esperti")
-	public String newEsperto(@ModelAttribute("esperti") Esperto esperto, @RequestParam("immagine") MultipartFile file, Model model) {
+	@PostMapping(value = "/admin/esperti")
+	public String newEsperto(@ModelAttribute("esperto") Esperto esperto, @RequestParam("immagine") MultipartFile file, Model model) {
 	    if (!espertoRepository.existsByNomeAndCognome(esperto.getNome(), esperto.getCognome())) {
 	        if (!file.isEmpty()) {
 	            try {
@@ -102,19 +102,19 @@ public class EspertoController {
 	                this.espertoService.save(esperto);
 	                
 	                model.addAttribute("esperto", esperto);
-	                return "esperto.html";
+	                return "esperto";
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	                model.addAttribute("messaggioErrore", "Errore durante il salvataggio dell'immagine");
-	                return "formNewEsperto";
+	                return "formNewEsperto.html";
 	            }
 	        } else {
 	            model.addAttribute("messaggioErrore", "Il file dell'immagine è vuoto");
-	            return "formNewEsperto";
+	            return "formNewEsperto.html";
 	        }
 	    } else {
 	        model.addAttribute("messaggioErrore", "Questo Esperto esiste già");
-	        return "formNewEsperto";
+	        return "formNewEsperto.html";
 	    }
 	}
 

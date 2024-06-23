@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,11 +39,11 @@ public class Esperto {
 	private MultipartFile immagine;
 	
 
-	@OneToMany(mappedBy = "esperto", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "esperto", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Attivita> attivita;
 	
 
-	@OneToMany(mappedBy = "autore", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "autore", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Recensione> recensioni;
 	
 	public String getDescrizione() {

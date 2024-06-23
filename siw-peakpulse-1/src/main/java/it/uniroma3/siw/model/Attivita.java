@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,18 +34,17 @@ public class Attivita {
 	@Transient
 	private MultipartFile immagine;
 	
-	@ManyToOne
-	public Esperto esperto;
 	
+	@ManyToOne(cascade = CascadeType.DETACH)
+	public Esperto esperto;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.DETACH)
 	private List<Attrezzatura> attrezzatureUtilizzate;
 	
 	
-	@OneToMany(mappedBy = "attivita")
+	@OneToMany(mappedBy = "attivita", cascade = CascadeType.REMOVE)
 	private List<Recensione> recensioni;
 
-	 
 	public Attivita() {
 	    // inizializzazione della lista nel costruttore
 	    this.attrezzatureUtilizzate = new ArrayList<>();

@@ -29,11 +29,11 @@
 						<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"
 							style="margin-top: 10px; font-size: 20px;"></div>
 					</div>
-					<button type="button" class="btn btn-custom" style="margin-top: 10px;" th:href="@{'/esperto/deleteAttivita/' + ${attivita.id}}">Elimina Attività</button>
 				</div>
 				<div class="descrizione" th:if="${attivita.esperto == null}" style="margin-top: 15px; font-size: 20px;">
 					L'esperto autore di questa attività non è disponibile!
 				</div>
+				<button type="button" class="btn1 btn-custom1" style="margin-top: 10px;" th:href="@{'/esperto/deleteAttivita/' + ${attivita.id}}">Elimina Attività</button>
 			</div>
 			<div class="image-block">
 				<div class="info-image" th:if="${attivita.urlImage != null}">

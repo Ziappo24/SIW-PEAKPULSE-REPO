@@ -39,14 +39,14 @@
 					<div th:unless="${attivita.esperto}">
 						<p>Non c'è nessun esperto per quest' attività'.</p>
 						<a th:href="@{'/admin/addEsperto' + '/' + ${attivita.id}}" class="button-link">
-							<button type="button" class="btn1 btn-custom1">Aggiungi Esperto</button>
+							<button type="button" class="btn1 btn-custom1" style="margin-bottom: 10px">Aggiungi Esperto</button>
 						</a>
 					</div>
-					<button type="button" class="btn btn-custom" style="margin-top: 10px;" th:href="@{'/esperto/deleteAttivita/' + ${attivita.id}}">Elimina Attività</button>
 				</div>
 				<div class="descrizione" th:if="${attivita.esperto == null}" style="font-size: 20px;">
 					L'esperto autore di questa attività non è disponibile!
 				</div>
+				<button type="button" class="btn1 btn-custom1" style="margin-top: 10px;" th:href="@{'/admin/deleteAttivita/' + ${attivita.id}}">Elimina Attività</button>
 			</div>
 			<div class="image-block">
 				<div class="info-image" th:if="${attivita.urlImage != null}">

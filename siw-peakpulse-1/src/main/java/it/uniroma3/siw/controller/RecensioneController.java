@@ -119,6 +119,7 @@ public class RecensioneController {
 	    List<Recensione> recensioni = attivita.getRecensioni();
 	    recensioni.add(recensione);
 	    attivita.setRecensioni(recensioni);
+	    model.addAttribute("attivita", attivita);
 	    
 	    return "/esperto/attivita.html";
 	}

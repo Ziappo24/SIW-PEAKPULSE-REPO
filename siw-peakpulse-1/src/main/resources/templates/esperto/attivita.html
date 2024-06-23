@@ -96,14 +96,16 @@
 								</div>
 							</div>
 							<div class="sezione-commento">
-								<p th:text="${recensione.descrizione}">
-								</p>
+								<p th:text="${recensione.descrizione}"></p>
+								<div class="leggi-link">
+									<a th:href="@{'/recensione' + '/' + ${recensione.id}}">Leggi di più...</a>
+								</div>
 							</div>
 						</div>
 					</li>
 				</ul>
 			</div>
-		</div> 
+		</div>
 		<a th:href="@{'/esperto/formNewRecensione' + '/' + ${attivita.id} + '/' + ${userDetails.username}}"
 			class="button-link">
 			<button type="button" class="btn btn-custom" style="margin-top: 10px;">Aggiungi una recensione!</button>

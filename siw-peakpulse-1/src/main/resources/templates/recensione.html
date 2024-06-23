@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse Info Attività</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<header>
+		<a href="/" class="logo">Siw-PeakPulse</a>
+		<h1 class="section-title">INFO ATTIVITÀ</h1>
+		<ul>
+			<li><a href="/" class="active">Home</a></li>
+		</ul>
+	</header>
+	<div class="info-section" id="info">
+		<div class="info-esperto">
+			<div class="info-content" style="width: 1200px;">
+				<div class="box-top">
+					<div class="info-profilo">
+						<div class="immagine-profilo">
+							<img th:src="@{/images/__${recensione.autore.urlImage}__}">
+						</div>
+						<div class="info-autore">
+							<strong th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"
+								style="color: #90273A; font-size: 15px;"></strong>
+						</div>
+					</div>
+					<div class="votazione">
+						<span class="stelle" th:attr="data-rating=${recensione.numeroStelle}"></span>
+					</div>
+				</div>
+				<div class="sezione-commento">
+					<p th:text="${recensione.descrizione}"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const stelleContainers = document.querySelectorAll('.stelle');
+		stelleContainers.forEach(container => {
+			const rating = container.getAttribute('data-rating');
+			container.innerHTML = generateStars(rating);
+		});
+	});
+
+	function generateStars(rating) {
+		let stars = '';
+		for (let i = 1; i <= 5; i++) {
+			if (i <= rating) {
+				stars += '<p class="fas fa-star"></p>';
+			} else {
+				stars += '<p class="fas fa-star empty"></p>';
+			}
+		}
+		return stars;
+	}
+</script>
+
+</html>

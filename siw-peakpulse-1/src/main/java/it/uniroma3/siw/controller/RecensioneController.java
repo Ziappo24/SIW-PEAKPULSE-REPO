@@ -40,6 +40,15 @@ public class RecensioneController {
 	@Autowired 
 	RecensioneRepository recensioneRepository;
 	
+	@GetMapping(value = "/recensione/{idRecensione}")
+	public String showRecensione(@PathVariable Long idRecensione, Model model) {
+		Recensione recensione = recensioneRepository.findById(idRecensione).get();
+		Esperto esperto = espertoRepository.findByNomeAndCognome(recensione.getAutore().getNome(), recensione.getAutore().getCognome());
+		model.addAttribute("recensione", recensione);
+		model.addAttribute("esperto", esperto);
+		return "recensione.html";
+	}
+	
 	@GetMapping(value = "/esperto/formNewRecensione/{idAttivita}/{username}")
 	public String formNewRecensione(@PathVariable Long idAttivita, @PathVariable String username, Model model) {
 	    // Trova le credenziali dell'utente
@@ -123,5 +132,7 @@ public class RecensioneController {
 	    
 	    return "/esperto/attivita.html";
 	}
+	
+	/*fare delete recensione*/
 
 }

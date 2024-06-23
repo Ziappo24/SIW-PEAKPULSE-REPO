@@ -734,6 +734,13 @@ section img#montagne_front {
 	font-size: 0.9rem;
 	color: #90273A;
 	text-align: justify;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	/* Numero di linee da mostrare */
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
 }
 
 .recensione-box:hover {
@@ -775,4 +782,22 @@ section img#montagne_front {
 
 .fa-star.empty {
 	color: #ccc;
+}
+
+.sezione-commento {
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+}
+
+.leggi-link a {
+	border: none;
+	margin: unset;
+	padding: unset;
+	font-size: 10px;
+}
+
+.leggi-link a:hover {
+	background: unset;
+	color: unset;
 }

@@ -96,8 +96,10 @@
 								</div>
 							</div>
 							<div class="sezione-commento">
-								<p th:text="${recensione.descrizione}">
-								</p>
+								<p th:text="${recensione.descrizione}"></p>
+								<div class="leggi-link">
+									<a th:href="@{'/recensione' + '/' + ${recensione.id}}">Leggi di più...</a>
+								</div>
 							</div>
 						</div>
 					</li>

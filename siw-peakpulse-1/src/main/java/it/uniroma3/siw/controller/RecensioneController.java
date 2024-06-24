@@ -23,6 +23,8 @@ import it.uniroma3.siw.repository.AttivitaRepository;
 import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.repository.EspertoRepository;
 import it.uniroma3.siw.repository.RecensioneRepository;
+import it.uniroma3.siw.repository.UserRepository;
+import it.uniroma3.siw.service.RecensioneService;
 
 
 @Controller
@@ -39,6 +41,12 @@ public class RecensioneController {
 	
 	@Autowired 
 	RecensioneRepository recensioneRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	RecensioneService recensioneService;
 	
 	@GetMapping(value = "/recensione/{idRecensione}")
 	public String showRecensione(@PathVariable Long idRecensione, Model model) {
@@ -128,11 +136,19 @@ public class RecensioneController {
 	    List<Recensione> recensioni = attivita.getRecensioni();
 	    recensioni.add(recensione);
 	    attivita.setRecensioni(recensioni);
-	    model.addAttribute("attivita", attivita);
+	    model.addAttribute("esperto", currentEsperto);
+	    model.addAttribute("user", currentUser);
+		model.addAttribute("attivita", attivita);
 	    
 	    return "/esperto/attivita.html";
 	}
 	
 	/*fare delete recensione*/
+	@GetMapping(value = "/esperto/deleteRecensione/{idRecensione}")
+	public String deleteRecensioneEsperto(@PathVariable("idRecensione") Long idRecensione, Model model) {
+		Recensione recensione = recensioneService.findById(idRecensione);
+		recensioneService.deleteById(recensione.getId());
+		return "redirect:/esperto/manageAttivita";
+	}
 
 }

@@ -74,7 +74,7 @@
 		</div>
 	</div>
 	<div class="info-section" id="recensioni" style="margin-top: unset; height: auto;">
-		<strong style="font-size: 30px; margin-bottom: 20px;">Recensioni</strong>
+		<strong style="font-size: 30px; margin-bottom: 30px;">Recensioni</strong>
 		<div class="list-content">
 			<div class="recensioni-container">
 				<ul class="list" th:if="${attivita.recensioni!=null}" style="justify-content: center;">
@@ -99,6 +99,10 @@
 								<p th:text="${recensione.descrizione}"></p>
 								<div class="leggi-link">
 									<a th:href="@{'/recensione' + '/' + ${recensione.id}}">Leggi di più...</a>
+									<div class="elimina-recensione"
+										th:if="${(recensione.autore.nome == user.nome && recensione.autore.cognome == user.cognome) || ((attivita.esperto.nome==null && attivita.esperto.cognome == null) || attivita.esperto.nome == user.nome && attivita.esperto.cognome == user.cognome)}">
+										<a th:href="@{'/esperto/deleteRecensione/' + ${recensione.id}}">Elimina</a>
+									</div>
 								</div>
 							</div>
 						</div>

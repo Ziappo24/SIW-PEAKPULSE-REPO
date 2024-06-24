@@ -801,3 +801,18 @@ section img#montagne_front {
 	background: unset;
 	color: unset;
 }
+
+.leggi-link {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 5px;
+	align-items: center;
+}
+.elimina-recensione {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}

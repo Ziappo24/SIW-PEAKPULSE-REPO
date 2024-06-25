@@ -19,7 +19,16 @@
 	<div class="info-section" id="info">
 		<div class="info-esperto">
 			<div class="info-content">
-				<div class="nome-cognome" th:text="${attivita.nome}"></div>
+				<div class="titolo-voti">
+					<div class="nome-cognome" th:text="${attivita.nome}"></div>
+					<div class="media-voti"
+						style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; width: 20%;">
+						<div class="nome-cognome" th:text="${attivita.mediaVoti}"></div>
+						<div class="votazione">
+							<span class="stelle" th:attr="data-rating=${attivita.mediaVoti}"></span>
+						</div>
+					</div>
+				</div>
 				<div class="descrizione">
 					<h3>Descrizione:</h3>
 					<div class="descrizione-testo" th:text="${attivita.descrizione}"></div>
@@ -123,7 +132,7 @@
 	document.addEventListener('DOMContentLoaded', function () {
 		const stelleContainers = document.querySelectorAll('.stelle');
 		stelleContainers.forEach(container => {
-			const rating = container.getAttribute('data-rating');
+			const rating = parseFloat(container.getAttribute('data-rating'));
 			container.innerHTML = generateStars(rating);
 		});
 	});
@@ -132,9 +141,11 @@
 		let stars = '';
 		for (let i = 1; i <= 5; i++) {
 			if (i <= rating) {
-				stars += '<p class="fas fa-star"></p>';
+				stars += '<i class="fas fa-star"></i>';
+			} else if (i - 0.5 <= rating) {
+				stars += '<i class="fas fa-star-half-alt"></i>';
 			} else {
-				stars += '<p class="fas fa-star empty"></p>';
+				stars += '<i class="fas fa-star empty"></i>';
 			}
 		}
 		return stars;

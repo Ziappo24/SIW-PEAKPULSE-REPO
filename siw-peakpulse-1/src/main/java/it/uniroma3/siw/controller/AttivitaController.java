@@ -7,8 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +25,7 @@ import it.uniroma3.siw.model.Attivita;
 import it.uniroma3.siw.model.Attrezzatura;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Esperto;
+import it.uniroma3.siw.model.Recensione;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.AttivitaRepository;
 import it.uniroma3.siw.repository.AttrezzaturaRepository;
@@ -40,45 +39,66 @@ import jakarta.validation.Valid;
 public class AttivitaController {
 
 //	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
-//	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
-	private static String UPLOAD_DIR = "C:\\Users\\UTENTE\\Documents\\workspace-spring-tool-suite-4-4.22.0.RELEASE\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
-	
-	@Autowired 
+	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+//	private static String UPLOAD_DIR = "C:\\Users\\UTENTE\\Documents\\workspace-spring-tool-suite-4-4.22.0.RELEASE\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+
+	@Autowired
 	AttivitaRepository attivitaRepository;
-	
-	@Autowired 
+
+	@Autowired
 	AttivitaService attivitaService;
-	
+
 	@Autowired
 	AttivitaValidator attivitaValidator;
-	
+
 	@Autowired
 	EspertoRepository espertoRepository;
-	
+
 	@Autowired
 	EspertoService espertoService;
-	
+
 	@Autowired
 	CredentialsRepository credentialsRepository;
-	
+
 	@Autowired
 	AttrezzaturaRepository attrezzaturaRepository;
-	
+
 	@GetMapping("/attivita/{id}")
 	public String getAttivita(@PathVariable("id") Long id, Model model) {
 		Attivita attivita = attivitaService.findById(id);
+
+		Double mediaVoti = calcolaMediaVoti(attivita);
+		attivita.setMediaVoti(mediaVoti);
 		model.addAttribute("attivita", attivita);
+
 		return "attivita.html";
 	}
-	
-	@GetMapping(value="/esperto/attivita/{id}/{username}")
-	public String getAttivitaEsperto(@PathVariable("id") Long id, @PathVariable("username") String username, Model model) {
+
+	private Double calcolaMediaVoti(Attivita attivita) {
+		List<Recensione> recensioni = attivita.getRecensioni();
+		if (recensioni == null || recensioni.isEmpty()) {
+			return 0.0;
+		}
+
+		Double sommaVoti = 0.0;
+		for (Recensione recensione : recensioni) {
+			sommaVoti += recensione.getNumeroStelle();
+		}
+
+		return sommaVoti / recensioni.size();
+	}
+
+	@GetMapping(value = "/esperto/attivita/{id}/{username}")
+	public String getAttivitaEsperto(@PathVariable("id") Long id, @PathVariable("username") String username,
+			Model model) {
 		Attivita attivita = attivitaService.findById(id);
 		Credentials tempUser = credentialsRepository.findByUsername(username);
-	    User currentUser = tempUser.getUser();
-	    Esperto esperto = espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
-	    model.addAttribute("esperto", esperto);
-	    model.addAttribute("user", currentUser);
+		User currentUser = tempUser.getUser();
+		Esperto esperto = espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
+		Double mediaVoti = calcolaMediaVoti(attivita);
+		attivita.setMediaVoti(mediaVoti);
+		model.addAttribute("esperto", esperto);
+		model.addAttribute("user", currentUser);
 		model.addAttribute("attivita", attivita);
 		return "/esperto/attivita.html";
 	}
@@ -88,7 +108,7 @@ public class AttivitaController {
 		model.addAttribute("listaAttivita", this.attivitaService.findAll());
 		return "listaAttivita.html";
 	}
-	
+
 	@PostMapping("/searchAttivita")
 	public String searchRicette(Model model, @RequestParam String nome) {
 		model.addAttribute("attivita", this.attivitaRepository.findByNome(nome));
@@ -121,9 +141,9 @@ public class AttivitaController {
 
 	@GetMapping(value = "/admin/formNewAttivita")
 	public String formNewAttivita(Model model) {
-	    Attivita attivita = new Attivita();
-	    model.addAttribute("attivita", attivita);
-	    return "/admin/formNewAttivita.html";
+		Attivita attivita = new Attivita();
+		model.addAttribute("attivita", attivita);
+		return "/admin/formNewAttivita.html";
 	}
 
 	@PostMapping("/admin/attivita")
@@ -161,10 +181,11 @@ public class AttivitaController {
 
 	@GetMapping(value = "/esperto/formNewAttivita/{username}")
 	public String formNewAttivitaEsperto(@PathVariable("username") String username, Model model) {
-	    Credentials tempUser = credentialsRepository.findByUsername(username);
-	    User currentUser = tempUser.getUser();
-	    Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
-	    Attivita attivita = new Attivita();
+		Credentials tempUser = credentialsRepository.findByUsername(username);
+		User currentUser = tempUser.getUser();
+		Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(),
+				currentUser.getCognome());
+		Attivita attivita = new Attivita();
 		model.addAttribute("esperto", currentEsperto);
 		model.addAttribute("espertoId", currentEsperto.getId());
 		model.addAttribute("attivita", attivita);
@@ -177,7 +198,8 @@ public class AttivitaController {
 			@RequestParam("username") String username, @RequestParam("immagine") MultipartFile file, Model model) {
 		Credentials tempUser = credentialsRepository.findByUsername(username);
 		User currentUser = tempUser.getUser();
-		Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
+		Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(),
+				currentUser.getCognome());
 		attivita.setEsperto(currentEsperto);
 
 		this.attivitaValidator.validate(attivita, bindingResult);
@@ -218,7 +240,10 @@ public class AttivitaController {
 
 	@GetMapping(value = "/admin/formUpdateAttivita/{id}")
 	public String formUpdateAttivita(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("attivita", attivitaRepository.findById(id).get());
+		Attivita attivita = attivitaService.findById(id);
+		Double mediaVoti = calcolaMediaVoti(attivita);
+		attivita.setMediaVoti(mediaVoti);
+		model.addAttribute("attivita", attivita);
 		return "admin/formUpdateAttivita.html";
 	}
 
@@ -233,22 +258,24 @@ public class AttivitaController {
 		Attivita attivita = attivitaRepository.findById(id).orElse(null);
 
 		// Verifica se esperto dell'attività è il esperto corrente
-		if (attivita == null || attivita.getEsperto() == null || !attivita.getEsperto().getNome().equals(currentUser.getNome())
+		if (attivita == null || attivita.getEsperto() == null
+				|| !attivita.getEsperto().getNome().equals(currentUser.getNome())
 				|| !attivita.getEsperto().getCognome().equals(currentUser.getCognome())) {
 			// Gestisci il caso di accesso non autorizzato
 			redirectAttributes.addFlashAttribute("messaggioErrore",
 					"Non puoi modificare questa attivita perché non ti appartiene!");
 			return "redirect:/esperto/manageAttivita";
 		}
-
+		Double mediaVoti = calcolaMediaVoti(attivita);
+		attivita.setMediaVoti(mediaVoti);
 		// Aggiungi l'attività al modello e restituisci la vista
 		model.addAttribute("attivita", attivita);
 		return "esperto/formUpdateAttivita.html";
 	}
 
 	@GetMapping(value = "/admin/setEspertoToAttivita/{espertoId}/{attivitaId}")
-	public String setEspertoToAttivita(@PathVariable("espertoId") Long espertoId, @PathVariable("attivitaId") Long attivitaId,
-			Model model) {
+	public String setEspertoToAttivita(@PathVariable("espertoId") Long espertoId,
+			@PathVariable("attivitaId") Long attivitaId, Model model) {
 
 		Esperto esperto = this.espertoService.findById(espertoId);
 		Attivita attivita = this.attivitaRepository.findById(attivitaId).get();
@@ -258,7 +285,7 @@ public class AttivitaController {
 		model.addAttribute("attivita", attivita);
 		return "admin/formUpdateAttivita.html";
 	}
-	
+
 	private List<Attrezzatura> attrezzaturaToAdd(Long attivitaId) {
 		List<Attrezzatura> attrezzaturaToAdd = new ArrayList<>();
 
@@ -267,7 +294,7 @@ public class AttivitaController {
 		}
 		return attrezzaturaToAdd;
 	}
-	
+
 	/* per aggiungere o togliere attrezzi a mo di lista */
 	@GetMapping("/admin/updateAttrezzatura/{id}")
 	public String updateAttrezzatura(@PathVariable("id") Long id, Model model) {

@@ -370,6 +370,16 @@ section img#montagne_front {
 	font-size: 3em;
 }
 
+.titolo-voti {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.media.voti {
+	font-size: 20px;
+}
+
 .anno-di-nascita h3 {
 	font-size: 1.5em;
 	margin-top: 20px;
@@ -735,7 +745,7 @@ section img#montagne_front {
 	color: #90273A;
 	text-align: justify;
 	display: -webkit-box;
-	-webkit-line-clamp: 2;
+	-webkit-line-clamp: 1;
 	/* Numero di linee da mostrare */
 	-webkit-box-orient: vertical;
 	overflow: hidden;
@@ -810,6 +820,7 @@ section img#montagne_front {
 	margin-top: 5px;
 	align-items: center;
 }
+
 .elimina-recensione {
 	display: flex;
 	flex-direction: row;

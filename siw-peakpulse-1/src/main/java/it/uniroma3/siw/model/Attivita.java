@@ -31,6 +31,8 @@ public class Attivita {
 	@Column(length=5000)
 	public String descrizione;
 	
+	public Double mediaVoti;
+	
 	@Transient
 	private MultipartFile immagine;
 	
@@ -50,6 +52,14 @@ public class Attivita {
 	    this.attrezzatureUtilizzate = new ArrayList<>();
 	 }
 	 
+	public Double getMediaVoti() {
+		return mediaVoti;
+	}
+
+	public void setMediaVoti(Double mediaVoti) {
+		this.mediaVoti = mediaVoti;
+	}
+
 	public long getId() {
 		return id;
 	}

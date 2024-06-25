@@ -4,6 +4,7 @@
 <head>
 	<title>Peak Pulse Info Attività</title>
 	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
 <body>
@@ -17,7 +18,16 @@
 	<div class="info-section" id="info">
 		<div class="info-esperto">
 			<div class="info-content">
-				<div class="nome-cognome" th:text="${attivita.nome}"></div>
+				<div class="titolo-voti">
+					<div class="nome-cognome" th:text="${attivita.nome}"></div>
+					<div class="media-voti"
+						style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; width: 20%;">
+						<div class="nome-cognome" th:text="${attivita.mediaVoti}"></div>
+						<div class="votazione">
+							<span class="stelle" th:attr="data-rating=${attivita.mediaVoti}"></span>
+						</div>
+					</div>
+				</div>
 				<div class="descrizione">
 					<h3>Descrizione:</h3>
 					<div class="descrizione-testo" th:text="${attivita.descrizione}"></div>
@@ -101,8 +111,10 @@
 								</div>
 							</div>
 							<div class="sezione-commento">
-								<p th:text="${recensione.descrizione}">
-								</p>
+								<p th:text="${recensione.descrizione}"></p>
+								<div class="leggi-link">
+									<a th:href="@{'/recensione' + '/' + ${recensione.id}}">Leggi di più...</a>
+								</div>
 							</div>
 						</div>
 					</li>
@@ -111,5 +123,28 @@
 		</div>
 	</div>
 </body>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const stelleContainers = document.querySelectorAll('.stelle');
+		stelleContainers.forEach(container => {
+			const rating = parseFloat(container.getAttribute('data-rating'));
+			container.innerHTML = generateStars(rating);
+		});
+	});
+
+	function generateStars(rating) {
+		let stars = '';
+		for (let i = 1; i <= 5; i++) {
+			if (i <= rating) {
+				stars += '<i class="fas fa-star"></i>';
+			} else if (i - 0.5 <= rating) {
+				stars += '<i class="fas fa-star-half-alt"></i>';
+			} else {
+				stars += '<i class="fas fa-star empty"></i>';
+			}
+		}
+		return stars;
+	}
+</script>
 
 </html>

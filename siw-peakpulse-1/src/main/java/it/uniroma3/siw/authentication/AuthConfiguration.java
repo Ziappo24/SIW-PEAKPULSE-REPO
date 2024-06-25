@@ -12,70 +12,68 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.sql.DataSource;
+
 import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
 import static it.uniroma3.siw.model.Credentials.ESPERTO_ROLE;
-
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class AuthConfiguration {
 
-	@Autowired
-	private DataSource dataSource;
+    @Autowired
+    private DataSource dataSource;
 
-	//specifica come il sistema deve recuperare username, password e ruoli nel DB
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication()
-		.dataSource(dataSource)
-		.authoritiesByUsernameQuery("SELECT username, role from credentials WHERE username=?")
-		.usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
-	}
+    // Configura come il sistema deve recuperare username, password e ruoli nel DB
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication()
+            .dataSource(dataSource)
+            .authoritiesByUsernameQuery("SELECT username, role FROM credentials WHERE username=?")
+            .usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
+    }
 
+    // Definisce come salvare in maniera criptata la password nel database
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	//definisce come salvare in maniera criptata la password nel database
-	@Bean
-	public PasswordEncoder passwordEncoder(){
-		return new BCryptPasswordEncoder();
-	}
-
-	@Bean
-	protected SecurityFilterChain configure(final HttpSecurity httpSecurity) 
-			throws Exception{
-		httpSecurity
-		.csrf().and().cors().disable()
-		.authorizeHttpRequests()
-		// .requestMatchers("/**").permitAll()
-		// chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-		.requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/images/**", "favicon.ico",
-				"/esperti", "listaAttivita", "attrezzature", "/esperto/**", "/attivita/**", "/attrezzatura/**", "/recensione/**").permitAll()
-		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
-		.requestMatchers(HttpMethod.POST,"/register", "/login", "/searchAttivita", "/searchEsperti", "/searchAttrezzature").permitAll()
-		.requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
-		.requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
-		.requestMatchers(HttpMethod.GET,"/esperto/**").hasAnyAuthority(ESPERTO_ROLE)
-		.requestMatchers(HttpMethod.POST,"/esperto/**").hasAnyAuthority(ESPERTO_ROLE)
-		// tutti gli utenti autenticati possono accere alle pagine rimanenti 
-		.anyRequest().authenticated()
-		// LOGIN: qui definiamo il login
-		.and().formLogin()
-		.loginPage("/login")
-		.permitAll()
-		.defaultSuccessUrl("/success", true)
-		.failureUrl("/login/error")
-		// LOGOUT: qui definiamo il logout
-		.and()
-		.logout()
-		// il logout è attivato con una richiesta GET a "/logout"
-		.logoutUrl("/logout")
-		// in caso di successo, si viene reindirizzati alla home
-		.logoutSuccessUrl("/")
-		.invalidateHttpSession(true)
-		.deleteCookies("JSESSIONID")
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.clearAuthentication(true).permitAll();
-		return httpSecurity.build();
-	}
+    // Configura la sicurezza HTTP
+    @Bean
+    protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+            .csrf().disable()
+            .authorizeHttpRequests(auth -> {
+                auth.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/css/**", "/images/**", "/favicon.ico",
+                        "/esperti", "/listaAttivita", "/attrezzature", "/esperto/**", "/attivita/**", "/attrezzatura/**", "/recensione/**").permitAll();
+                auth.requestMatchers(HttpMethod.POST, "/register", "/login", "/searchAttivita", "/searchEsperti", "/searchAttrezzature").permitAll();
+                auth.requestMatchers(HttpMethod.GET, "/esperto/**").hasAnyAuthority(ESPERTO_ROLE);
+                auth.requestMatchers(HttpMethod.POST, "/esperto/**").hasAnyAuthority(ESPERTO_ROLE);
+                auth.requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE);
+                auth.requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE);
+                auth.anyRequest().authenticated();
+            })
+            .oauth2Login(oauth2 -> oauth2
+                .loginPage("/login")
+                .defaultSuccessUrl("/success", true)
+                .failureUrl("/login/error")
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/success", true)
+                .failureUrl("/login/error")
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .clearAuthentication(true)
+                .permitAll()
+            );
+        return httpSecurity.build();
+    }
 }

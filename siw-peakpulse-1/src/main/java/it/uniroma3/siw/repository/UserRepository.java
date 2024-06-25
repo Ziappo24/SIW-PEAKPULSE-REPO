@@ -9,6 +9,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	public User findByNome(String nome);
 	
 	public User findByCognome(String cognome);
+	
+	 User findByNomeAndCognome(String nome, String cognome);
 		
 }
 

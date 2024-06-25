@@ -51,6 +51,11 @@ public class UserService {
     public User getUserByCognome(String cognome) {
         return this.userRepository.findByNome(cognome);
     }
+    
+    @Transactional
+    public User findUserByNomeAndCognome(String nome, String cognome) {
+        return userRepository.findByNomeAndCognome(nome, cognome);
+    }
 
     /**
      * This method saves a User in the DB.

@@ -1,4 +1,6 @@
 package it.uniroma3.siw.model;
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.CascadeType;
 
 import jakarta.persistence.Entity;
@@ -18,6 +20,7 @@ import lombok.AllArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Component
 public class Credentials{
 
     public static final String ESPERTO_ROLE = "ESPERTO";
@@ -26,7 +29,6 @@ public class Credentials{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String username;
     private String password;
     private String role;

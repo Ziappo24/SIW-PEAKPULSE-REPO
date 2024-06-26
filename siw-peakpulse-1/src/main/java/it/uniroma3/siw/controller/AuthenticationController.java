@@ -5,17 +5,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
@@ -39,8 +34,9 @@ import jakarta.validation.Valid;
 @Controller
 public class AuthenticationController {
 
-//	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
-	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+	private static final String DESCRIZIONE_GOOGLE = "L'utente che esegue il login da google non possiede descrizione";
+	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+//	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
 //	private static String UPLOAD_DIR = "C:\\Users\\UTENTE\\Documents\\workspace-spring-tool-suite-4-4.22.0.RELEASE\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
 
 	@Autowired
@@ -72,91 +68,155 @@ public class AuthenticationController {
 	}
 
 	@GetMapping("/")
-	public String index(Model model) {
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	public String index(Authentication authentication, Model model) {
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+			return "index.html";
+		} else if (authentication.getPrincipal() instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+			if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+				return "/admin/indexAdmin.html";
+			} else if (credentials.getRole().equals(Credentials.ESPERTO_ROLE)) {
+				return "/esperto/indexEsperto.html";
+			}
+		} else if (authentication.getPrincipal() instanceof DefaultOidcUser) {
+			DefaultOidcUser oidcUser = (DefaultOidcUser) authentication.getPrincipal();
+			String email = oidcUser.getAttribute("email");
 
-	    if (authentication instanceof AnonymousAuthenticationToken) {
-	        return "index.html";
-	    } else {
-	        if (authentication.getPrincipal() instanceof UserDetails) {
-	            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	            Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
-	            if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-	                model.addAttribute("userDetails", userDetails);
-	                return "admin/indexAdmin.html";
-	            } else if (credentials.getRole().equals(Credentials.ESPERTO_ROLE)) {
-	                model.addAttribute("userDetails", userDetails);
-	                return "esperto/indexEsperto.html";
-	            }
-	        } else if (authentication.getPrincipal() instanceof DefaultOidcUser) {
-	            DefaultOidcUser oidcUser = (DefaultOidcUser) authentication.getPrincipal();
-	            Collection<? extends GrantedAuthority> authorities = oidcUser.getAuthorities();
-	            Set<String> authoritySet = authorities.stream()
-	                    .map(GrantedAuthority::getAuthority)
-	                    .collect(Collectors.toSet());
+			// Verifica se esiste un Credentials con questa email
+			Credentials existingCredentials = credentialsService.getCredentials(email);
+			if (existingCredentials != null) {
+				// Usa le credenziali esistenti
+				model.addAttribute("credentials", existingCredentials);
+				model.addAttribute("user", existingCredentials.getUser());
 
-	            // Controlla se l'utente ha il ruolo ESPERTO_ROLE e aggiungilo se non è presente
-	            if (!authoritySet.contains("ESPERTO_ROLE")) {
-	                authoritySet.add("ESPERTO_ROLE");
-	            }
+				if (existingCredentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+					return "/admin/indexAdmin.html";
+				} else if (existingCredentials.getRole().equals(Credentials.ESPERTO_ROLE)) {
+					return "/esperto/indexEsperto.html";
+				}
+			} else {
+				// Crea nuovo user e credentials
+				Credentials newCred = new Credentials();
+				newCred.setUsername(email);
+				newCred.setPassword(""); // OAuth2 non usa password locali
+				newCred.setRole("ESPERTO");
 
-	            model.addAttribute("userDetails", oidcUser);
+				User newUser = new User();
+				String fullName = oidcUser.getAttribute("name");
+				String[] parts = fullName.split(" ");
+				String nome = parts[0];
+				String cognome = parts.length > 1 ? parts[1] : ""; // Evita l'ArrayIndexOutOfBoundsException
 
-	            if (authoritySet.contains("ADMIN_ROLE")) {
-	                return "admin/indexAdmin.html";
-	            } else if (authoritySet.contains("ESPERTO_ROLE")) {
-	                return "esperto/indexEsperto.html";
-	            }
-	        }
-	    }
+				LocalDate birthday = oidcUser.getAttribute("birthday");
+				newUser.setNascita(birthday);
+				newUser.setNome(nome);
+				newUser.setCognome(cognome);
+				String urlImage = oidcUser.getAttribute("picture");
+				newUser.setUrlImage(urlImage);
+				newUser.setEmail(email);
+				newCred.setUser(newUser);
 
-	    return "index.html";
+				Esperto nuovoEsperto = new Esperto();
+				nuovoEsperto.setNome(newUser.getNome());
+				nuovoEsperto.setCognome(newUser.getCognome());
+				nuovoEsperto.setNascita(newUser.getNascita());
+				nuovoEsperto.setUrlImage(newUser.getUrlImage());
+				nuovoEsperto.setDescrizione(DESCRIZIONE_GOOGLE);
+				espertoService.save(nuovoEsperto);
+
+				// Salva il nuovo utente e le credenziali nel database
+				userService.saveUser(newUser);
+				credentialsService.saveCredentials(newCred);
+				model.addAttribute("esperto", nuovoEsperto);
+				model.addAttribute("user", newUser);
+				model.addAttribute("credentials", newCred);
+
+				if (newCred.getRole().equals(Credentials.ADMIN_ROLE)) {
+					return "/admin/indexAdmin.html";
+				} else if (newCred.getRole().equals(Credentials.ESPERTO_ROLE)) {
+					return "/esperto/indexEsperto.html";
+				}
+			}
+		}
+
+		return "index.html";
 	}
 
-
 	@GetMapping("/success")
-	public String defaultAfterLogin(Model model) {
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	public String defaultAfterLogin(Authentication authentication, Model model) {
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+			return "index.html";
+		} else if (authentication.getPrincipal() instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+			if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+				return "/admin/indexAdmin.html";
+			} else if (credentials.getRole().equals(Credentials.ESPERTO_ROLE)) {
+				return "/esperto/indexEsperto.html";
+			}
+		} else if (authentication.getPrincipal() instanceof DefaultOidcUser) {
+			DefaultOidcUser oidcUser = (DefaultOidcUser) authentication.getPrincipal();
+			String email = oidcUser.getAttribute("email");
 
-	    if (authentication != null && authentication.isAuthenticated()) {
-	        if (authentication.getPrincipal() instanceof UserDetails) {
-	            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	            Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+			// Verifica se esiste un Credentials con questa email
+			Credentials existingCredentials = credentialsService.getCredentials(email);
+			if (existingCredentials != null) {
+				// Usa le credenziali esistenti
+				model.addAttribute("credentials", existingCredentials);
+				model.addAttribute("user", existingCredentials.getUser());
 
-	            if (!credentials.getRole().equals(Credentials.ESPERTO_ROLE)) {
-	                credentials.setRole(Credentials.ESPERTO_ROLE); // Assicurati che le credenziali abbiano ESPERTO_ROLE
-	            }
+				if (existingCredentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+					return "/admin/indexAdmin.html";
+				} else if (existingCredentials.getRole().equals(Credentials.ESPERTO_ROLE)) {
+					return "/esperto/indexEsperto.html";
+				}
+			} else {
+				// Crea nuovo user e credentials
+				Credentials newCred = new Credentials();
+				newCred.setUsername(email);
+				newCred.setPassword(""); // OAuth2 non usa password locali
+				newCred.setRole("ESPERTO");
 
-	            model.addAttribute("userDetails", userDetails);
+				User newUser = new User();
+				String fullName = oidcUser.getAttribute("name");
+				String[] parts = fullName.split(" ");
+				String nome = parts[0];
+				String cognome = parts.length > 1 ? parts[1] : ""; // Evita l'ArrayIndexOutOfBoundsException
+				LocalDate birthday = oidcUser.getAttribute("birthday");
 
-	            if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-	                return "admin/indexAdmin.html";
-	            } else if (credentials.getRole().equals(Credentials.ESPERTO_ROLE)) {
-	                return "esperto/indexEsperto.html";
-	            }
-	        } else if (authentication.getPrincipal() instanceof DefaultOidcUser) {
-	            DefaultOidcUser oidcUser = (DefaultOidcUser) authentication.getPrincipal();
-	            Collection<? extends GrantedAuthority> authorities = oidcUser.getAuthorities();
-	            Set<String> authoritySet = authorities.stream()
-	                    .map(GrantedAuthority::getAuthority)
-	                    .collect(Collectors.toSet());
+				newUser.setNascita(birthday);
+				newUser.setNome(nome);
+				newUser.setCognome(cognome);
+				String urlImage = oidcUser.getAttribute("picture");
+				newUser.setUrlImage(urlImage);
+				newUser.setEmail(email);
+				newCred.setUser(newUser);
 
-	            // Controlla se l'utente ha il ruolo ESPERTO_ROLE e aggiungilo se non è presente
-	            if (!authoritySet.contains("ESPERTO_ROLE")) {
-	                authoritySet.add("ESPERTO_ROLE");
-	            }
+				Esperto nuovoEsperto = new Esperto();
+				nuovoEsperto.setNome(newUser.getNome());
+				nuovoEsperto.setCognome(newUser.getCognome());
+				nuovoEsperto.setNascita(newUser.getNascita());
+				nuovoEsperto.setUrlImage(newUser.getUrlImage());
+				nuovoEsperto.setDescrizione(DESCRIZIONE_GOOGLE);
+				espertoService.save(nuovoEsperto);
 
-	            model.addAttribute("userDetails", oidcUser);
+				// Salva il nuovo utente e le credenziali nel database
+				userService.saveUser(newUser);
+				credentialsService.saveCredentials(newCred);
 
-	            if (authoritySet.contains("ADMIN_ROLE")) {
-	                return "admin/indexAdmin.html";
-	            } else if (authoritySet.contains("ESPERTO_ROLE")) {
-	                return "esperto/indexEsperto.html";
-	            }
-	        }
-	    }
+				model.addAttribute("user", newUser);
+				model.addAttribute("credentials", newCred);
 
-	    return "index.html";
+				if (newCred.getRole().equals(Credentials.ADMIN_ROLE)) {
+					return "/admin/indexAdmin.html";
+				} else if (newCred.getRole().equals(Credentials.ESPERTO_ROLE)) {
+					return "/esperto/indexEsperto.html";
+				}
+			}
+		}
+
+		return "index.html";
 	}
 
 //	@GetMapping(value = "/") 
@@ -238,57 +298,4 @@ public class AuthenticationController {
 		}
 	}
 
-	/*
-	 * @GetMapping("/success") public String getUserInfo(Authentication
-	 * authentication, Model model) { // Variabile per il ruolo String role = null;
-	 * 
-	 * // Controlla se l'utente è autenticato tramite OAuth2 if
-	 * (authentication.getPrincipal() instanceof OAuth2User) { OAuth2User oauth2User
-	 * = (OAuth2User) authentication.getPrincipal();
-	 * 
-	 * String fullName = oauth2User.getAttribute("name");
-	 * 
-	 * // Dividi la stringa in base allo spazio usando split(" ") String[] parts =
-	 * fullName.split(" ");
-	 * 
-	 * // Ora hai un array con due elementi: parts[0] contiene il nome, parts[1] //
-	 * contiene il cognome String nome = parts[0]; // "Edoardo" String cognome =
-	 * parts[1]; // "Piazzolla"
-	 * 
-	 * // Ottieni le informazioni dell'utente da OAuth2 String username =
-	 * oauth2User.getAttribute("given_name"); String email =
-	 * oauth2User.getAttribute("email"); String imageUrl =
-	 * oauth2User.getAttribute("picture");
-	 * 
-	 * // Aggiungi logica per determinare il ruolo ESPERTO_ROLE role =
-	 * determineRoleFromOAuth2User(oauth2User);
-	 * 
-	 * // Verifica se l'utente esiste già nel sistema User existingUser =
-	 * userService.findUserByNomeAndCognome(nome, cognome); if (existingUser ==
-	 * null) { // Se l'utente non esiste, crea un nuovo utente e assegna il ruolo
-	 * ESPERTO_ROLE User newUser = new User(); newUser.setNome(nome);
-	 * newUser.setCognome(cognome); newUser.setEmail(email);
-	 * newUser.setUrlImage(imageUrl); userService.saveUser(newUser);
-	 * 
-	 * // Crea le credenziali per il nuovo utente Credentials newCredentials = new
-	 * Credentials(); newCredentials.setUsername(username); int passwordLength = 10;
-	 * // Lunghezza della password desiderata SecureRandom secureRandom = new
-	 * SecureRandom(); byte[] randomBytes = new byte[passwordLength];
-	 * secureRandom.nextBytes(randomBytes);
-	 * newCredentials.setPassword(Base64.getUrlEncoder().withoutPadding().
-	 * encodeToString(randomBytes).substring(0, passwordLength)); // Genera una
-	 * password casuale newCredentials.setRole(role); // Assegna il ruolo
-	 * ESPERTO_ROLE credentialsService.saveCredentials(newCredentials); } } else if
-	 * (authentication.getPrincipal() instanceof UserDetails) { // Se l'utente è
-	 * autenticato tramite il meccanismo standard di Spring Security UserDetails
-	 * userDetails = (UserDetails) authentication.getPrincipal(); Credentials
-	 * credentials = credentialsService.getCredentials(userDetails.getUsername());
-	 * if (credentials != null) { role = credentials.getRole(); } }
-	 * 
-	 * // Reindirizza in base al ruolo if (Credentials.ADMIN_ROLE.equals(role)) {
-	 * return "admin/indexAdmin.html"; // Reindirizza a indexAdmin se l'utente è un
-	 * admin } else if (Credentials.ESPERTO_ROLE.equals(role)) { return
-	 * "esperto/indexEsperto.html"; // Reindirizza a indexEsperto se l'utente è un
-	 * esperto } return "index.html"; }
-	 */
 }

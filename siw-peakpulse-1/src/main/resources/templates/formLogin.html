@@ -2,8 +2,8 @@
 <html>
 
 <head>
-<title>Peak Pulse Login</title>
-<link rel="stylesheet" href="/css/login-style.css">
+	<title>Peak Pulse Login</title>
+	<link rel="stylesheet" href="/css/login-style.css">
 </head>
 
 <body>
@@ -22,26 +22,24 @@
 	</header>
 	<div class="container" id="container">
 		<div class="form-container sign-in">
-			<form th:action="@{/login}" method="POST"
-				style="justify-content: center;">
+			<form th:action="@{/login}" method="POST" style="justify-content: center;">
 				<h1 style="padding: 10px;">Login</h1>
 				<span>Usa la tua email e password</span>
 				<div class="input">
-					<label for="username"><strong>Username:</strong></label> <input
-						name="username" type="text" required />
+					<label for="username"><strong>Username:</strong></label> <input name="username" type="text"
+						required />
 				</div>
 				<div class="input">
-					<label for="password"><strong>Password:</strong></label> <input
-						name="password" type="password" required />
+					<label for="password"><strong>Password:</strong></label> <input name="password" type="password"
+						required />
 				</div>
 				<div th:if="${messaggioErrore != null}">
 					<span th:text="${messaggioErrore}"> Messaggio Errore </span>
 				</div>
-				<div>
-				<h3>Or login with:</h3>
-				<a th:href="@{/oauth2/authorization/google}" class="btn btn-google">Google</a>
-				<a th:href="@{/oauth2/authorization/github}" class="btn btn-github">GitHub</a>
-			</div>
+				<div class="google-login">
+					<h3>Or login with:</h3>
+					<a th:href="@{/oauth2/authorization/google}" class="btn btn-google">Google</a>
+				</div>
 				<button type="submit">Login</button>
 			</form>
 		</div>
@@ -51,8 +49,7 @@
 					<h1>Benvenuto!</h1>
 					<p>Registrati con i tuoi dati personali per utilizzare tutte le
 						funzionalità del sito</p>
-					<a class="register-button" th:href="@{/register}"
-						style="color: white;">Registrati</a>
+					<a class="register-button" th:href="@{/register}" style="color: white;">Registrati</a>
 				</div>
 			</div>
 		</div>

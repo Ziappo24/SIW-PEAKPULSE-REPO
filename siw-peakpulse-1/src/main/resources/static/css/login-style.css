@@ -385,3 +385,9 @@ input#voto-5:checked ~ label {
 .img-input {
 	margin-bottom: 40px;
 }
+.google-login {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}

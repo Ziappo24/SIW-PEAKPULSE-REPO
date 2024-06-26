@@ -21,37 +21,39 @@
 			<div class="info-content">
 				<div class="titolo-voti">
 					<div class="nome-cognome" th:text="${attivita.nome}"></div>
-					<div class="media-voti" style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; width: 20%;">
+					<div class="media-voti"
+						style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; width: 20%;">
 						<div class="nome-cognome" th:text="${attivita.mediaVoti}"></div>
 						<div class="votazione">
 							<span class="stelle" th:attr="data-rating=${attivita.mediaVoti}"></span>
 						</div>
 					</div>
 				</div>
-				<div class="descrizione">
-					<h3>Descrizione:</h3>
-					<div class="descrizione-testo" th:text="${attivita.descrizione}"></div>
-					<div th:if="${attivita.descrizione == null}">
-						Non disponibile
-					</div>
-					<div class="descrizione" th:if="${attivita.esperto != null}">
-						<h3>Esperto autore:</h3>
-						<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"
-							style="font-size: 20px; margin-top: 10px;"></div>
-					</div>
+			</div>
+			<div class="descrizione">
+				<h3>Descrizione:</h3>
+				<div class="descrizione-testo" th:text="${attivita.descrizione}"></div>
+				<div th:if="${attivita.descrizione == null}">
+					Non disponibile
 				</div>
-				<div class="descrizione" th:if="${attivita.esperto == null}" style="margin-top: 15px; font-size: 20px;">
-					L'esperto autore di questa attività non è disponibile!
+				<div class="descrizione" th:if="${attivita.esperto != null}">
+					<h3>Esperto autore:</h3>
+					<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"
+						style="font-size: 20px; margin-top: 10px;"></div>
 				</div>
 			</div>
-			<div class="image-block">
-				<div class="info-image" th:if="${attivita.urlImage != null}">
-					<div class="image">
-						<img class="immagine" th:src="@{/images/__${attivita.urlImage}__}" alt="Attivita Image">
-					</div>
+			<div class="descrizione" th:if="${attivita.esperto == null}" style="margin-top: 15px; font-size: 20px;">
+				L'esperto autore di questa attività non è disponibile!
+			</div>
+		</div>
+		<div class="image-block">
+			<div class="info-image" th:if="${attivita.urlImage != null}">
+				<div class="image">
+					<img class="immagine" th:src="@{/images/__${attivita.urlImage}__}" alt="Attivita Image">
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<div class="info-section-attrezzature" id="attrezzature-utilizzate" style="background-color: unset;">
 		<div class="list-content-attrezzature" style="display: flex; flex-direction: column; align-items: center;">

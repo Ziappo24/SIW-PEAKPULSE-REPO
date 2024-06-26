@@ -31,6 +31,7 @@ import it.uniroma3.siw.repository.AttivitaRepository;
 import it.uniroma3.siw.repository.AttrezzaturaRepository;
 import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.repository.EspertoRepository;
+import it.uniroma3.siw.repository.UserRepository;
 import it.uniroma3.siw.service.AttivitaService;
 import it.uniroma3.siw.service.EspertoService;
 import jakarta.validation.Valid;
@@ -38,8 +39,8 @@ import jakarta.validation.Valid;
 @Controller
 public class AttivitaController {
 
-//	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
-	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+//	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
 //	private static String UPLOAD_DIR = "C:\\Users\\UTENTE\\Documents\\workspace-spring-tool-suite-4-4.22.0.RELEASE\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
 
 	@Autowired
@@ -62,6 +63,9 @@ public class AttivitaController {
 
 	@Autowired
 	AttrezzaturaRepository attrezzaturaRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	@GetMapping("/attivita/{id}")
 	public String getAttivita(@PathVariable("id") Long id, Model model) {
@@ -93,7 +97,16 @@ public class AttivitaController {
 			Model model) {
 		Attivita attivita = attivitaService.findById(id);
 		Credentials tempUser = credentialsRepository.findByUsername(username);
-		User currentUser = tempUser.getUser();
+		User currentUser;
+		if (tempUser == null) {
+	        String[] parts = username.split(" ");
+	        String nome = parts[0];
+	        String cognome = parts.length > 1 ? parts[1] : "";
+	        currentUser = userRepository.findByNomeAndCognome(nome, cognome);
+	    } else {
+	        currentUser = tempUser.getUser();
+	    }
+
 		Esperto esperto = espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
 		Double mediaVoti = calcolaMediaVoti(attivita);
 		attivita.setMediaVoti(mediaVoti);
@@ -182,14 +195,21 @@ public class AttivitaController {
 	@GetMapping(value = "/esperto/formNewAttivita/{username}")
 	public String formNewAttivitaEsperto(@PathVariable("username") String username, Model model) {
 		Credentials tempUser = credentialsRepository.findByUsername(username);
-		User currentUser = tempUser.getUser();
-		Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(),
-				currentUser.getCognome());
+		User currentUser;
+		if (tempUser == null) {
+	        String[] parts = username.split(" ");
+	        String nome = parts[0];
+	        String cognome = parts.length > 1 ? parts[1] : "";
+	        currentUser = userRepository.findByNomeAndCognome(nome, cognome);
+	    } else {
+	        currentUser = tempUser.getUser();
+	    }
+
+		Esperto esperto = espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
 		Attivita attivita = new Attivita();
-		model.addAttribute("esperto", currentEsperto);
-		model.addAttribute("espertoId", currentEsperto.getId());
+		model.addAttribute("esperto", esperto);
+		model.addAttribute("user", currentUser);
 		model.addAttribute("attivita", attivita);
-		model.addAttribute("userDetails", tempUser); // Aggiungi userDetails al modello
 		return "esperto/formNewAttivita.html";
 	}
 
@@ -197,11 +217,19 @@ public class AttivitaController {
 	public String newAttivitaEsperto(@Valid @ModelAttribute("attivita") Attivita attivita, BindingResult bindingResult,
 			@RequestParam("username") String username, @RequestParam("immagine") MultipartFile file, Model model) {
 		Credentials tempUser = credentialsRepository.findByUsername(username);
-		User currentUser = tempUser.getUser();
+		User currentUser;
+		if (tempUser == null) {
+	        String[] parts = username.split(" ");
+	        String nome = parts[0];
+	        String cognome = parts.length > 1 ? parts[1] : "";
+	        currentUser = userRepository.findByNomeAndCognome(nome, cognome);
+	    } else {
+	        currentUser = tempUser.getUser();
+	    }
 		Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(),
 				currentUser.getCognome());
 		attivita.setEsperto(currentEsperto);
-
+		System.out.println("Username ricevuto: " + username);
 		this.attivitaValidator.validate(attivita, bindingResult);
 		if (!bindingResult.hasErrors()) {
 			if (!file.isEmpty()) {
@@ -214,9 +242,11 @@ public class AttivitaController {
 
 					// Salva l'attivita
 					this.attivitaRepository.save(attivita);
-
+					
+					model.addAttribute("esperto", currentEsperto);
+					model.addAttribute("user", currentUser);
 					model.addAttribute("attivita", attivita);
-					return "attivita.html";
+					return "/esperto/attivita.html";
 				} catch (IOException e) {
 					e.printStackTrace();
 					model.addAttribute("messaggioErrore", "Errore durante il salvataggio dell'immagine");
@@ -252,7 +282,15 @@ public class AttivitaController {
 			Model model, RedirectAttributes redirectAttributes) {
 		// Recupera l'utente dal repository
 		Credentials tempUser = credentialsRepository.findByUsername(username);
-		User currentUser = tempUser.getUser();
+		User currentUser;
+		if (tempUser == null) {
+	        String[] parts = username.split(" ");
+	        String nome = parts[0];
+	        String cognome = parts.length > 1 ? parts[1] : "";
+	        currentUser = userRepository.findByNomeAndCognome(nome, cognome);
+	    } else {
+	        currentUser = tempUser.getUser();
+	    }
 
 		// Recupera L'attivita dal repository
 		Attivita attivita = attivitaRepository.findById(id).orElse(null);

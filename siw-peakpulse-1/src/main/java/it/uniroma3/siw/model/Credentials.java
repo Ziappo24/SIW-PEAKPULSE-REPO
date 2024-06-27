@@ -38,7 +38,7 @@ public class Credentials{
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 
-    public String getUsername() {
+	public String getUsername() {
         return username;
     }
 

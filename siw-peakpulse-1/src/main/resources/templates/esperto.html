@@ -38,7 +38,8 @@
 			<div class="image-block">
 				<div class="info-image" th:if="${esperto.urlImage != null}">
 					<div class="image">
-						<img class="immagine" th:src="@{/images/__${esperto.urlImage}__}" alt="Esperto Image">
+						<img class="immagine" th:if="${esperto.urlImage.startsWith('https')}" th:src="${esperto.urlImage}" style="width:200px; height: 200px;" alt="Esperto Image">
+						<img class="immagine" th:unless="${esperto.urlImage.startsWith('https')}" th:src="@{/images/__${esperto.urlImage}__}" alt="Esperto Image">
 					</div>
 				</div>
 			</div>

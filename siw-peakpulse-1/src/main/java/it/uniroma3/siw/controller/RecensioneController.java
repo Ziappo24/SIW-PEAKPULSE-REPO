@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import it.uniroma3.siw.model.Attivita;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Esperto;
@@ -26,124 +25,130 @@ import it.uniroma3.siw.repository.RecensioneRepository;
 import it.uniroma3.siw.repository.UserRepository;
 import it.uniroma3.siw.service.RecensioneService;
 
-
 @Controller
 public class RecensioneController {
-	
+
 	@Autowired
 	EspertoRepository espertoRepository;
-	
+
 	@Autowired
 	CredentialsRepository credentialsRepository;
-	
-	@Autowired 
+
+	@Autowired
 	AttivitaRepository attivitaRepository;
-	
-	@Autowired 
+
+	@Autowired
 	RecensioneRepository recensioneRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	RecensioneService recensioneService;
-	
+
 	@GetMapping(value = "/recensione/{idRecensione}")
 	public String showRecensione(@PathVariable Long idRecensione, Model model) {
 		Recensione recensione = recensioneRepository.findById(idRecensione).get();
-		Esperto esperto = espertoRepository.findByNomeAndCognome(recensione.getAutore().getNome(), recensione.getAutore().getCognome());
+		Esperto esperto = espertoRepository.findByNomeAndCognome(recensione.getAutore().getNome(),
+				recensione.getAutore().getCognome());
 		model.addAttribute("recensione", recensione);
 		model.addAttribute("esperto", esperto);
 		return "recensione.html";
 	}
-	
+
 	@GetMapping(value = "/esperto/formNewRecensione/{idAttivita}/{username}")
 	public String formNewRecensione(@PathVariable Long idAttivita, @PathVariable String username, Model model) {
-	    // Trova le credenziali dell'utente
-	    Credentials tempUser = credentialsRepository.findByUsername(username);
-	    if (tempUser == null) {
-	        model.addAttribute("messaggioErrore", "Utente non trovato");
-	        return "attivita.html";
-	    }
+		// Trova le credenziali dell'utente
+		Credentials tempUser = credentialsRepository.findByUsername(username);
+		User currentUser;
 
-	    // Trova l'utente associato alle credenziali
-	    User currentUser = tempUser.getUser();
-	    Esperto currentEsperto = espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
-	    if (currentEsperto == null) {
-	        model.addAttribute("messaggioErrore", "Esperto non trovato");
-	        return "attivita.html";
-	    }
+		if (tempUser == null) {
+			String[] parts = username.split(" ");
+			String nome = parts[0];
+			String cognome = parts.length > 1 ? parts[1] : "";
+			currentUser = userRepository.findByNomeAndCognome(nome, cognome);
+		} else {
+			currentUser = tempUser.getUser();
+		}
 
-	    // Trova l'attività per ID
-	    Optional<Attivita> tempAttivita = attivitaRepository.findById(idAttivita);
-	    if (tempAttivita.isEmpty()) {
-	        model.addAttribute("messaggioErrore", "Attività non trovata");
-	        return "attivita.html";
-	    }
+		// Trova l'utente associato alle credenziali
+		Esperto currentEsperto = espertoRepository.findByNomeAndCognome(currentUser.getNome(),
+				currentUser.getCognome());
+		if (currentEsperto == null) {
+			model.addAttribute("messaggioErrore", "Esperto non trovato");
+			return "attivita.html";
+		}
 
-	    Attivita attivita = tempAttivita.get();
-	    Recensione recensione = new Recensione();
+		// Trova l'attività per ID
+		Optional<Attivita> tempAttivita = attivitaRepository.findById(idAttivita);
+		if (tempAttivita.isEmpty()) {
+			model.addAttribute("messaggioErrore", "Attività non trovata");
+			return "attivita.html";
+		}
 
-	    // Aggiungi gli attributi al modello
-	    model.addAttribute("recensione", recensione);
-	    model.addAttribute("esperto", currentEsperto);
-	    model.addAttribute("userDetails", tempUser);
-	    model.addAttribute("attivita", attivita);
+		Attivita attivita = tempAttivita.get();
+		Recensione recensione = new Recensione();
 
-	    return "esperto/formNewRecensione";
-	}
-
-
-	
-	@PostMapping(value = "/esperto/recensione")
-	public String newRecensione(
-	        @ModelAttribute("recensione") Recensione recensione,
-	        @RequestParam("username") String username,
-	        @RequestParam("attivita") Long idAttivita,
-	        @RequestParam("voto") Integer voto,
-	        Model model) {
-	    
-	    Credentials tempUser = credentialsRepository.findByUsername(username);
-	    if (tempUser == null) {
-	        // handle the case where the user is not found
-	        model.addAttribute("messaggioErrore", "Utente non trovato");
-	        return "attivita.html";
-	    }
-	    
-	    User currentUser = tempUser.getUser();
-	    Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
-	    if (currentEsperto == null) {
-	        // handle the case where the expert is not found
-	        model.addAttribute("messaggioErrore", "Esperto non trovato");
-	        return "attivita.html";
-	    }
-	    
-	    recensione.setAutore(currentEsperto);
-	    
-	    Optional<Attivita> tempAttivita = this.attivitaRepository.findById(idAttivita);
-	    if (!tempAttivita.isPresent()) {
-	        // handle the case where the activity is not found
-	        model.addAttribute("messaggioErrore", "Attività non trovata");
-	        return "attivita.html";
-	    }
-	    
-	    Attivita attivita = tempAttivita.get();
-	    recensione.setAttivita(attivita);
-	    recensione.setNumeroStelle(voto);
-	    
-	    this.recensioneRepository.save(recensione);
-	    
-	    List<Recensione> recensioni = attivita.getRecensioni();
-	    recensioni.add(recensione);
-	    attivita.setRecensioni(recensioni);
-	    model.addAttribute("esperto", currentEsperto);
-	    model.addAttribute("user", currentUser);
+		// Aggiungi gli attributi al modello
+		model.addAttribute("recensione", recensione);
+		model.addAttribute("esperto", currentEsperto);
+		model.addAttribute("user", currentUser);
 		model.addAttribute("attivita", attivita);
-	    
-	    return "/esperto/attivita.html";
+
+		return "esperto/formNewRecensione";
 	}
-	
-	/*fare delete recensione*/
+
+	@PostMapping(value = "/esperto/recensione")
+	public String newRecensione(@ModelAttribute("recensione") Recensione recensione,
+			@RequestParam("username") String username, @RequestParam("attivita") Long idAttivita,
+			@RequestParam("voto") Integer voto, Model model) {
+
+		Credentials tempUser = credentialsRepository.findByUsername(username);
+		User currentUser;
+
+		if (tempUser == null) {
+			String[] parts = username.split(" ");
+			String nome = parts[0];
+			String cognome = parts.length > 1 ? parts[1] : "";
+			currentUser = userRepository.findByNomeAndCognome(nome, cognome);
+		} else {
+			currentUser = tempUser.getUser();
+		}
+		Esperto currentEsperto = this.espertoRepository.findByNomeAndCognome(currentUser.getNome(),
+				currentUser.getCognome());
+		if (currentEsperto == null) {
+			// handle the case where the expert is not found
+			model.addAttribute("messaggioErrore", "Esperto non trovato");
+			return "attivita.html";
+		}
+
+		recensione.setAutore(currentEsperto);
+
+		Optional<Attivita> tempAttivita = this.attivitaRepository.findById(idAttivita);
+		if (!tempAttivita.isPresent()) {
+			// handle the case where the activity is not found
+			model.addAttribute("messaggioErrore", "Attività non trovata");
+			return "attivita.html";
+		}
+
+		Attivita attivita = tempAttivita.get();
+		recensione.setAttivita(attivita);
+		recensione.setNumeroStelle(voto);
+
+		this.recensioneRepository.save(recensione);
+
+		List<Recensione> recensioni = attivita.getRecensioni();
+		recensioni.add(recensione);
+		attivita.setRecensioni(recensioni);
+		model.addAttribute("recensione", recensione);
+		model.addAttribute("esperto", currentEsperto);
+		model.addAttribute("user", currentUser);
+		model.addAttribute("attivita", attivita);
+
+		return "/esperto/attivita.html";
+	}
+
+	/* fare delete recensione */
 	@GetMapping(value = "/esperto/deleteRecensione/{idRecensione}")
 	public String deleteRecensioneEsperto(@PathVariable("idRecensione") Long idRecensione, Model model) {
 		Recensione recensione = recensioneService.findById(idRecensione);

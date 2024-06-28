@@ -93,7 +93,8 @@
 							<div class="box-top">
 								<div class="info-profilo">
 									<div class="immagine-profilo">
-										<img th:src="@{/images/__${recensione.autore.urlImage}__}">
+										<img th:if="${recensione.autore.urlImage.startsWith('https')}" th:src="${recensione.autore.urlImage}" alt="Esperto Image">
+										<img th:unless="${recensione.autore.urlImage.startsWith('https')}" th:src="@{/images/__${recensione.autore.urlImage}__}">
 									</div>
 									<div class="info-autore">
 										<strong th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"

@@ -743,7 +743,7 @@ section img#montagne_front {
 .sezione-commento p {
 	font-size: 0.9rem;
 	color: #90273A;
-	text-align: justify;
+/*	text-align: justify;*/
 	display: -webkit-box;
 	-webkit-line-clamp: 1;
 	/* Numero di linee da mostrare */

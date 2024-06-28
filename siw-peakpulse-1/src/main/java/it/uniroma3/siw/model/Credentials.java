@@ -33,8 +33,6 @@ public class Credentials{
     private String password;
     private String role;
 
-
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 

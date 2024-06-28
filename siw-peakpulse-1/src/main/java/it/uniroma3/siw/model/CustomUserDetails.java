@@ -7,12 +7,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User; 
 
 public class CustomUserDetails extends Credentials {
 
-    public CustomUserDetails(Long id, String username, String password, String ruolo, User user) {
-        super(id, username, password, ruolo, user);
+	public CustomUserDetails(Long id, String username, String password, String role, User user) {
+        super();
+        this.setId(id);
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setRole(role);
+        this.setUser(user);
     }
 
     // Metodo statico per convertire un DefaultOidcUser in CustomUserDetails

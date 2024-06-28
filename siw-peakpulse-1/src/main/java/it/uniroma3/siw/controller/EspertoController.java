@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Esperto;
@@ -141,4 +142,22 @@ public class EspertoController {
 		espertoService.deleteById(espertoId);
 		return "redirect:/admin/manageEsperti";
 	}
+	
+	/* ESEMPIO SALVATAGGIO BASE 64 */
+//	 public String imageToBase64(MultipartFile file) throws IOException {
+//		 byte[] fileToByte = file.getBytes();
+//		 String base64String = Base64.getEncoder().encodeToString(fileToByte);
+//		 return base64String;
+//		 /* nella classe associata dovrei poi mettere associata alla stringa urlImage la seguente annotazione:
+//		  * 
+//		  * @Column(lenght = 100000)
+//		  * String urlImage;
+//		  * 
+//		  * in modo che la stringa base 64 sia completamente visualizzabile e salvabile dentro la colonna
+//		  * 
+//		  * nell'html la visualizzo nel seguente modo: <img src="data:image/jpeg;base64,${esperto.urlImage}">
+//		  *  
+//		  */ 
+//	 }
+
 }

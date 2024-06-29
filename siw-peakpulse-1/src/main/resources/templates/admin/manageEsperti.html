@@ -27,7 +27,8 @@
 					<div class="image-box">
 						<div class="info-image-box" th:if="${esperto.urlImage != null}">
 							<div class="image">
-								<img class="immagine" th:src="@{/images/__${esperto.urlImage}__}" alt="Esperto Image">
+									<img class="immagine" th:if="${esperto.urlImage.startsWith('https')}" th:src="${esperto.urlImage}" alt="Esperto Image">
+									<img class="immagine" th:unless="${esperto.urlImage.startsWith('https')}"th:src="@{/images/__${esperto.urlImage}__}" alt="Esperto Image">
 							</div>
 						</div>
 					</div>

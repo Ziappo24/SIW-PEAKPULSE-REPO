@@ -71,3 +71,30 @@ L'architettura dell'applicazione è suddivisa in vari strati che comunicano tra 
 - **Thymeleaf:** Thymeleaf è utilizzato come motore di template per generare pagine web dinamiche. I controller passano i dati al motore di template, che li utilizza per creare le viste HTML da restituire agli utenti.
 
 Questa suddivisione in strati e l'utilizzo di Spring Boot consente una comunicazione chiara e strutturata tra le varie componenti dell'applicazione, facilitando la manutenzione e l'estendibilità del codice.
+
+# Alcune preview del sito!
+
+# Schermata Iniziale Dinamica
+![Immagine 2024-06-29 133119](https://github.com/Ziappo24/SIW-PEAKPULSE-REPO/assets/128827644/72c36e11-ce57-4285-9bc5-856c1fd4477d)
+
+# Elenchi presenti sul sito
+![Immagine 2024-06-29 133147](https://github.com/Ziappo24/SIW-PEAKPULSE-REPO/assets/128827644/d8f0d96e-ae62-4dec-8a31-3a99a60bcc28)
+
+# Pagina di Login con accesso a Google
+![Immagine 2024-06-29 133212](https://github.com/Ziappo24/SIW-PEAKPULSE-REPO/assets/128827644/0dcf8736-2a0f-45fc-aabb-9fca6fd163b7)
+
+# Pagina di una singola attività
+![Immagine 2024-06-29 133312](https://github.com/Ziappo24/SIW-PEAKPULSE-REPO/assets/128827644/64c48322-4059-449d-ae25-87979634f0c7)
+
+# Sezione di attrezzature richieste per l'attività
+![Immagine 2024-06-29 133333](https://github.com/Ziappo24/SIW-PEAKPULSE-REPO/assets/128827644/fe68cf4f-30aa-48f9-b28a-aba970998187)
+
+# Sezione deidcata alle recensioni degl altri esperti utenti
+![Immagine 2024-06-29 133357](https://github.com/Ziappo24/SIW-PEAKPULSE-REPO/assets/128827644/6472f9fe-510b-4400-96c5-dffd19491ad0)
+
+
+
+
+
+
+

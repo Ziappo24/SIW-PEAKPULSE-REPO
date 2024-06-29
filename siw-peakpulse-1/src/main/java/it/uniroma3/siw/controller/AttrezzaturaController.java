@@ -25,8 +25,8 @@ import it.uniroma3.siw.service.AttrezzaturaService;
 public class AttrezzaturaController {
 	
 //	private static String UPLOAD_DIR = "C:\\Users\\EDOARDO\\Desktop\\FOR SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
-//	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
-	private static String UPLOAD_DIR = "C:\\Users\\UTENTE\\Documents\\workspace-spring-tool-suite-4-4.22.0.RELEASE\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+	private static String UPLOAD_DIR = "C:\\Users\\utente\\Desktop\\UNIR3\\TERZO ANNO\\II SEMESTRE\\SISW\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
+//	private static String UPLOAD_DIR = "C:\\Users\\UTENTE\\Documents\\workspace-spring-tool-suite-4-4.22.0.RELEASE\\siw-peakpulse-repo\\siw-peakpulse-1\\src\\main\\resources\\static\\images";
 	
 	@Autowired 
 	AttrezzaturaRepository attrezzaturaRepository;
@@ -145,7 +145,7 @@ public class AttrezzaturaController {
 	
 	@GetMapping(value = "/admin/deleteAttrezzatura/{attrezzaturaId}")
 	public String deleteAttrezzaturaAdmin(@PathVariable("attrezzaturaId") Long attrezzaturaId, Model model) {
-		attrezzaturaService.deleteById(attrezzaturaId);
+		attrezzaturaService.deleteAttrezzatura(attrezzaturaId);
         return "redirect:/admin/manageAttrezzature";
 	}
 }

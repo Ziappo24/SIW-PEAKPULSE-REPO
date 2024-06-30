@@ -137,8 +137,10 @@ public class EspertoController {
 	public String deleteCuocoAdmin(@PathVariable("espertoId") Long espertoId, Model model) {
 		Esperto esperto = espertoService.findById(espertoId);
 		User userAssociato = userRepository.findByNomeAndCognome(esperto.getNome(), esperto.getCognome());
-		Credentials credentialsAssociate = credentialsRepository.findById(userAssociato.getId()).get();
-		credentialsRepository.deleteById(credentialsAssociate.getId());
+		if(userAssociato!=null) {
+			Credentials credentialsAssociate = credentialsRepository.findById(userAssociato.getId()).get();
+			credentialsRepository.deleteById(credentialsAssociate.getId());
+		}
 		espertoService.deleteById(espertoId);
 		return "redirect:/admin/manageEsperti";
 	}

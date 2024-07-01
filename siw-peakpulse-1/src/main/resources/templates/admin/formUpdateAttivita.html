@@ -69,8 +69,6 @@
 				<div class="info-image" th:if="${attivita.urlImage != null}">
 					<div class="image">
 						<img class="immagine" th:src="@{/images/__${attivita.urlImage}__}" alt="Attivita Image">
-						<img th:unless="${recensione.autore.urlImage.startsWith('https')}"
-											th:src="@{/images/__${recensione.autore.urlImage}__}">
 					</div>
 				</div>
 			</div>
@@ -119,6 +117,7 @@
 								<div class="info-profilo">
 									<div class="immagine-profilo">
 										<img th:src="@{/images/__${recensione.autore.urlImage}__}">
+										<img th:unless="${recensione.autore.urlImage.startsWith('https')}" th:src="@{/images/__${recensione.autore.urlImage}__}">
 									</div>
 									<div class="info-autore">
 										<strong th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"

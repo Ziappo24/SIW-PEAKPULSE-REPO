@@ -121,7 +121,7 @@ public class AuthenticationController {
 	            String[] parts = fullName.split(" ");
 	            String nome = parts[0];
 	            String cognome = parts.length > 1 ? parts[1] : ""; // Evita l'ArrayIndexOutOfBoundsException
-	            LocalDate birthday = oidcUser.getAttribute("birthday");
+	            LocalDate birthday = (LocalDate) oidcUser.getAttribute("birthday");
 
 	            newUser.setNascita(birthday);
 	            newUser.setNome(nome);

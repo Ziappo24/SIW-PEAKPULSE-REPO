@@ -19,4 +19,5 @@ public interface EspertoRepository extends CrudRepository<Esperto, Long>{
 	public Esperto findByNomeAndCognome(String nome, String cognome);
 
 	public boolean existsByNomeAndCognome(String nome, String cognome);
+
 }

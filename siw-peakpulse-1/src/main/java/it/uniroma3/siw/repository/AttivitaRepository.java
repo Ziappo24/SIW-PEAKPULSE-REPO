@@ -13,6 +13,7 @@ import it.uniroma3.siw.model.Esperto;
 
 public interface AttivitaRepository extends CrudRepository<Attivita, Long> {
 	
+	@Query("SELECT at FROM Attivita at WHERE LOWER(at.nome) = LOWER(?1)")
 	public List<Attivita> findByNome(String nome);
 
 	public Optional<Attivita> findById(Long Id);

@@ -31,6 +31,7 @@ import it.uniroma3.siw.repository.AttivitaRepository;
 import it.uniroma3.siw.repository.AttrezzaturaRepository;
 import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.repository.EspertoRepository;
+import it.uniroma3.siw.repository.RecensioneRepository;
 import it.uniroma3.siw.repository.UserRepository;
 import it.uniroma3.siw.service.AttivitaService;
 import it.uniroma3.siw.service.EspertoService;
@@ -66,6 +67,7 @@ public class AttivitaController {
 	
 	@Autowired
 	UserRepository userRepository;
+	
 
 	@GetMapping("/attivita/{id}")
 	public String getAttivita(@PathVariable("id") Long id, Model model) {
@@ -73,6 +75,7 @@ public class AttivitaController {
 
 		Double mediaVoti = calcolaMediaVoti(attivita);
 		attivita.setMediaVoti(mediaVoti);
+		attivitaRepository.save(attivita);
 		model.addAttribute("attivita", attivita);
 
 		return "attivita.html";
@@ -110,6 +113,7 @@ public class AttivitaController {
 		Esperto esperto = espertoRepository.findByNomeAndCognome(currentUser.getNome(), currentUser.getCognome());
 		Double mediaVoti = calcolaMediaVoti(attivita);
 		attivita.setMediaVoti(mediaVoti);
+		attivitaRepository.save(attivita);
 		model.addAttribute("esperto", esperto);
 		model.addAttribute("user", currentUser);
 		model.addAttribute("attivita", attivita);
@@ -123,20 +127,20 @@ public class AttivitaController {
 	}
 
 	@PostMapping("/searchAttivita")
-	public String searchRicette(Model model, @RequestParam String nome) {
-		model.addAttribute("attivita", this.attivitaRepository.findByNome(nome));
-		return "attivita.html";
+	public String searchAttivita(Model model, @RequestParam String nome) {
+		model.addAttribute("listaAttivita", this.attivitaRepository.findByNome(nome));
+		return "listaAttivita.html";
 	}
 
 	@PostMapping("admin/searchAttivita")
 	public String searchAttivitaAdmin(Model model, @RequestParam String nome) {
-		model.addAttribute("attivita", this.attivitaRepository.findByNome(nome));
+		model.addAttribute("listaAttivita", this.attivitaRepository.findByNome(nome));
 		return "/admin/manageAttivita.html";
 	}
 
 	@PostMapping("esperto/searchAttivita")
 	public String searchAttivitaEsperto(Model model, @RequestParam String nome) {
-		model.addAttribute("attivita", this.attivitaRepository.findByNome(nome));
+		model.addAttribute("listaAttivita", this.attivitaRepository.findByNome(nome));
 		return "/esperto/manageAttivita.html";
 	}
 
@@ -320,6 +324,20 @@ public class AttivitaController {
 		attivita.setEsperto(esperto);
 		this.attivitaRepository.save(attivita);
 
+		model.addAttribute("attivita", attivita);
+		return "admin/formUpdateAttivita.html";
+	}
+	
+	@GetMapping(value = "/admin/removeEspertoToAttivita/{espertoId}/{attivitaId}")
+	public String removeEspertoToAttivita(@PathVariable("espertoId") Long espertoId,
+			@PathVariable("attivitaId") Long attivitaId, Model model) {
+
+		Esperto esperto = this.espertoService.findById(espertoId);
+		Attivita attivita = this.attivitaRepository.findById(attivitaId).get();
+		attivita.setEsperto(null);
+		this.attivitaRepository.save(attivita);
+
+		model.addAttribute("esperto", esperto);
 		model.addAttribute("attivita", attivita);
 		return "admin/formUpdateAttivita.html";
 	}

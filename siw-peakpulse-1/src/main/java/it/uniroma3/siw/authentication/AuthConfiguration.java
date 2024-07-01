@@ -59,9 +59,8 @@ public class AuthConfiguration {
 		httpSecurity.csrf().disable().authorizeHttpRequests(auth -> {
 			auth.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/css/**", "/images/**", "/favicon.ico",
 					"/esperti", "/listaAttivita", "/attrezzature", "/esperto/**", "/attivita/**", "/attrezzatura/**",
-					"/recensione/**").permitAll();
-			auth.requestMatchers(HttpMethod.POST, "/register", "/login", "/searchAttivita", "/searchEsperti",
-					"/searchAttrezzature").permitAll();
+					"/recensione/**", "/recensioni/**").permitAll();
+			auth.requestMatchers(HttpMethod.POST, "/register", "/login", "/searchAttivita", "/searchEsperti", "/searchRecensioni", "/searchAttrezzature").permitAll();
 			auth.requestMatchers(HttpMethod.GET, "/esperto/**").hasAnyAuthority(ESPERTO_ROLE);
 			auth.requestMatchers(HttpMethod.POST, "/esperto/**").hasAnyAuthority(ESPERTO_ROLE);
 			auth.requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE);

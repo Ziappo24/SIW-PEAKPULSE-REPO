@@ -84,6 +84,7 @@
 	</div>
 	<div class="info-section" id="recensioni" style="margin-top: unset; height: auto;">
 		<strong style="font-size: 30px; margin-bottom: 30px;">Recensioni</strong>
+		<a href="/recensioni" style="color: #90273A; text-decoration: none; margin-bottom: 10px;"> TUTTE LE RECENSIONI</a>
 		<div class="list-content">
 			<div class="recensioni-container">
 				<ul class="list" th:if="${attivita.recensioni!=null}" style="justify-content: center;">
@@ -93,8 +94,10 @@
 							<div class="box-top">
 								<div class="info-profilo">
 									<div class="immagine-profilo">
-										<img th:if="${recensione.autore.urlImage.startsWith('https')}" th:src="${recensione.autore.urlImage}" alt="Esperto Image">
-										<img th:unless="${recensione.autore.urlImage.startsWith('https')}" th:src="@{/images/__${recensione.autore.urlImage}__}">
+										<img th:if="${recensione.autore.urlImage.startsWith('https')}"
+											th:src="${recensione.autore.urlImage}" alt="Esperto Image">
+										<img th:unless="${recensione.autore.urlImage.startsWith('https')}"
+											th:src="@{/images/__${recensione.autore.urlImage}__}">
 									</div>
 									<div class="info-autore">
 										<strong th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"
@@ -110,7 +113,7 @@
 								<div class="leggi-link">
 									<a th:href="@{'/recensione' + '/' + ${recensione.id}}">Leggi di più...</a>
 									<div class="elimina-recensione"
-										th:if="${(recensione.autore.nome == user.nome && recensione.autore.cognome == user.cognome) || ((attivita.esperto.nome==null && attivita.esperto.cognome == null) || attivita.esperto.nome == user.nome && attivita.esperto.cognome == user.cognome)}">
+										th:if="${((recensione.autore.nome == user.nome && recensione.autore.cognome == user.cognome) or (attivita.esperto.nome==null && attivita.esperto.cognome == null)) or ((attivita.esperto.nome == user.nome && attivita.esperto.cognome == user.cognome)	or (attivita.esperto.nome==null && attivita.esperto.cognome == null))}">
 										<a th:href="@{'/esperto/deleteRecensione/' + ${recensione.id}}">Elimina</a>
 									</div>
 								</div>

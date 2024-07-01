@@ -10,7 +10,7 @@ import it.uniroma3.siw.model.Attrezzatura;
 
 public interface AttrezzaturaRepository extends CrudRepository<Attrezzatura, Long>{
 	
-	@Query("SELECT a FROM Attrezzatura a WHERE LOWER(a.nome) = LOWER(?1)")
+	@Query("SELECT ar FROM Attrezzatura ar WHERE LOWER(ar.nome) = LOWER(?1)")
 	public List<Attrezzatura> findByNome(String nome);
 	
 	

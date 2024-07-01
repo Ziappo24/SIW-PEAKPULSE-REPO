@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,6 @@ public class AttivitaService {
 	
 	public Attivita save(Attivita attivita) {
 		return attivitaRepository.save(attivita);
-	}
-	
-	
-	public Object findByNome(String nome) {
-		return attivitaRepository.findByNome(nome);
 	}
 	
 	public void deleteById(Long id) {

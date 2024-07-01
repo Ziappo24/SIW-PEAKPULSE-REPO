@@ -40,9 +40,14 @@
 							<div th:text="${attivita.esperto.nome} + ' ' + ${attivita.esperto.cognome}"
 								style="margin-top: 10px; font-size: 20px;"></div>
 							<br>
-							<a th:href="@{'/admin/addEsperto' + '/' + ${attivita.id}}" class="button-link">
-								<button type="button" class="btn1 btn-custom1">Modifica Esperto</button>
-							</a>
+							<div style="display: flex; flex-direction: row;">
+								<a style="margin-right: 10px;" th:href="@{'/admin/addEsperto' + '/' + ${attivita.id}}" class="button-link">
+									<button type="button" class="btn1 btn-custom1">Modifica Esperto</button>
+								</a>
+								<a th:href="@{'/admin/removeEspertoToAttivita/' + ${attivita.esperto.id} + '/' + ${attivita.id}}"class="button-link">
+									<button type="button" class="btn1 btn-custom1">Rimuovi Esperto</button>
+								</a>
+							</div>
 						</div>
 					</div>
 					<div th:unless="${attivita.esperto}">
@@ -53,9 +58,9 @@
 						</a>
 					</div>
 				</div>
-				<div class="descrizione" th:if="${attivita.esperto == null}" style="font-size: 20px;">
-					L'esperto autore di questa attività non è disponibile!
-				</div>
+<!--				<div class="descrizione" th:if="${attivita.esperto == null}" style="font-size: 20px;">-->
+<!--					L'esperto autore di questa attività non è disponibile!-->
+<!--				</div>-->
 				<a th:href="@{'/admin/deleteAttivita/' + ${attivita.id}}" class="button-link">
 					<button type="button" class="btn1 btn-custom1" style="margin-top: 10px;">Elimina Attività</button>
 				</a>

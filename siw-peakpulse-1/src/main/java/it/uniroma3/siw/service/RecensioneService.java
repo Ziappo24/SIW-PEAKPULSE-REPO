@@ -29,7 +29,7 @@ public class RecensioneService {
 		recensioneRepository.deleteById(id);
 	}
 	
-	public Iterable<Recensione> findByNumeroStelle(Integer numeroStelle) {
+	public Object findByNumeroStelle(Integer numeroStelle) {
 		return recensioneRepository.findByNumeroStelle(numeroStelle);
 	}
 }

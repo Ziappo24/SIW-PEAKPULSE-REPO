@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Peak Pulse Lista Esperti</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+	<header>
+		<a href="/" class="logo">Siw-PeakPulse</a>
+		<h1 class="section-title">LISTA RECENSIONI</h1>
+		<ul>
+			<li><a href="/" class="active">Home</a></li>
+		</ul>
+	</header>
+	<div class="info-section" id="info">
+		<form th:action="@{/searchRecensioni}" method="post">
+			<div class="search">
+				<span class=" search-icon material-symbols-outlined">ricerca</span>
+				<input class="search-input" type="number" name="numeroStelle" th:value="${numeroStelle}"
+					placeholder="cerca per numero di stelle" style="font-family: Graduate, serif;">
+			</div>
+		</form>
+		<div class="list-content">
+			<div class="recensioni-container">
+				<ul class="list" th:if="${recensioni!=null}" style="justify-content: center;">
+					<li class="list-item" th:each="recensione : ${recensioni}"
+						style="width: 600px; height: 150px; border: none;">
+						<div class="recensione-box">
+							<div class="box-top">
+								<div class="info-profilo">
+									<div class="immagine-profilo">
+										<img th:if="${recensione.autore.urlImage.startsWith('https')}"
+											th:src="${recensione.autore.urlImage}" alt="Esperto Image">
+										<img th:unless="${recensione.autore.urlImage.startsWith('https')}"
+											th:src="@{/images/__${recensione.autore.urlImage}__}">
+									</div>
+									<div class="info-autore">
+										<strong th:text="${recensione.autore.nome} + ' ' + ${recensione.autore.cognome}"
+											style="color: #90273A; font-size: 15px;"></strong>
+									</div>
+								</div>
+								<div class="votazione">
+									<span class="stelle" th:attr="data-rating=${recensione.numeroStelle}"></span>
+								</div>
+							</div>
+							<div class="sezione-commento">
+								<p th:text="${recensione.descrizione}"></p>
+								<div class="leggi-link">
+									<a th:href="@{'/recensione' + '/' + ${recensione.id}}">Leggi di più...</a>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+</body>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const stelleContainers = document.querySelectorAll('.stelle');
+		stelleContainers.forEach(container => {
+			const rating = container.getAttribute('data-rating');
+			container.innerHTML = generateStars(rating);
+		});
+	});
+
+	function generateStars(rating) {
+		let stars = '';
+		for (let i = 1; i <= 5; i++) {
+			if (i <= rating) {
+				stars += '<p class="fas fa-star"></p>';
+			} else {
+				stars += '<p class="fas fa-star empty"></p>';
+			}
+		}
+		return stars;
+	}
+</script>
+</html>

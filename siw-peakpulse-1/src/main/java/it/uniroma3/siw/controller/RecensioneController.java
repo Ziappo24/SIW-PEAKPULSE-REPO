@@ -55,6 +55,12 @@ public class RecensioneController {
 		model.addAttribute("esperto", esperto);
 		return "recensione.html";
 	}
+	
+	@GetMapping("/recensioni")
+	public String ShowRecensioni(Model model) {
+		model.addAttribute("recensioni", this.recensioneService.findAll());
+		return "recensioni.html";
+	}
 
 	@GetMapping(value = "/esperto/formNewRecensione/{idAttivita}/{username}")
 	public String formNewRecensione(@PathVariable Long idAttivita, @PathVariable String username, Model model) {
@@ -134,7 +140,6 @@ public class RecensioneController {
 		Attivita attivita = tempAttivita.get();
 		recensione.setAttivita(attivita);
 		recensione.setNumeroStelle(voto);
-
 		this.recensioneRepository.save(recensione);
 
 		List<Recensione> recensioni = attivita.getRecensioni();
@@ -154,6 +159,12 @@ public class RecensioneController {
 		Recensione recensione = recensioneService.findById(idRecensione);
 		recensioneService.deleteById(recensione.getId());
 		return "redirect:/esperto/manageAttivita";
+	}
+	
+	@PostMapping("/searchRecensioni")
+	public String searchRecensione(Model model, @RequestParam Integer numeroStelle) {
+		model.addAttribute("recensioni", this.recensioneRepository.findByNumeroStelle(numeroStelle));
+		return "recensioni.html";
 	}
 
 }

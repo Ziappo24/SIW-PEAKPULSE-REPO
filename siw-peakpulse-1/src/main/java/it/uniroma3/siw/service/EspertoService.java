@@ -27,10 +27,6 @@ public class EspertoService {
 		return espertoRepository.findByNome(nome);
 	}
 	
-	public Object findByNomeAndCognome(String nome, String cognome) {
-		return espertoRepository.findByNome(nome);
-	}
-	
 	public void deleteById(Long id) {
 		espertoRepository.deleteById(id);
     }

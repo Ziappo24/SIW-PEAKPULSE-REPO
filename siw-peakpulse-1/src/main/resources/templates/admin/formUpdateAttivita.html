@@ -69,6 +69,8 @@
 				<div class="info-image" th:if="${attivita.urlImage != null}">
 					<div class="image">
 						<img class="immagine" th:src="@{/images/__${attivita.urlImage}__}" alt="Attivita Image">
+						<img th:unless="${recensione.autore.urlImage.startsWith('https')}"
+											th:src="@{/images/__${recensione.autore.urlImage}__}">
 					</div>
 				</div>
 			</div>
